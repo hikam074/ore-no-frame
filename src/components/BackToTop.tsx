@@ -21,7 +21,9 @@ export function BackToTop() {
             window.scrollTo({ top: 0, behavior: "smooth" })
         }
             className="
-                fixed bottom-6 left-6 rounded-full px-4 py-4 bg-accent text-hightlight shadow-lg hover:opacity-90
+                fixed bottom-6 right-6 sm:left-6 sm:right-auto
+                rounded-full px-4 py-4
+                bg-accent text-hightlight shadow-lg hover:opacity-90
             "
         >
             <ArrowUp className="w-4 h-4" />
