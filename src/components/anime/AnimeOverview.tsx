@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export function AnimeOverview({ anime }: { anime: MALAnime }) {
     return (
-        <section className="w-1/5 border-r">
-            <div className="p-1 border border-r-0 border-border gap-1 flex flex-col items-center">
+        <section className="w-48 sm:w-1/5 border-r">
+            <div className="p-1 border border-r-0 border-border sm:gap-1 flex flex-col items-center">
 
                 {/* image */}
                 <Image
@@ -17,7 +17,7 @@ export function AnimeOverview({ anime }: { anime: MALAnime }) {
 
                 {/* button href */}
                 <a href={`https://myanimelist.net/anime/${anime.id}/`} target="_blank"
-                    className="w-full text-xs text-center text-highlight py-1 rounded-md bg-accent"
+                    className="w-full text-xs text-center text-surface py-1 sm:rounded-md bg-accent"
                 >
                     More Information
                 </a>

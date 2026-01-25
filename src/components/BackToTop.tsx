@@ -8,7 +8,7 @@ export function BackToTop() {
 
     useEffect(() => {
         const onScroll = () => {
-            setVisible(window.scrollY > 300)
+            setVisible(window.scrollY > 50)
         }
 
         window.addEventListener("scroll", onScroll)

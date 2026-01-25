@@ -9,10 +9,10 @@ import { AnimeSynopsis } from "@/components/anime/AnimeSynopsis";
 import { AnimeReviewSection } from "@/components/anime/AnimeReviewSection";
 
 type Props = {
-    params: { mal_id: string}
+    params: { mal_id: string }
 }
 
-export default async function AnimePage({ params }: Props ) {
+export default async function AnimePage({ params }: Props) {
     const par = await params
     const malId = Number(par.mal_id)
 
@@ -23,18 +23,32 @@ export default async function AnimePage({ params }: Props ) {
 
     return (
         <article className="text-text border border-border">
-            <AnimeHeader anime={mal}></AnimeHeader>
+            <AnimeHeader anime={mal} />
 
-            <section className="flex gap-4 p-2 bg-surface">
-                <AnimeOverview anime={mal}></AnimeOverview>
+            <section aria-label="Anime detail mobile" className="flex flex-col gap-4 p-2 bg-surface sm:hidden">
 
-                <section className="w-4/5 flex flex-col gap-4">
-                    <AnimeGeneralInfo anime={mal}></AnimeGeneralInfo>
-                    <AnimeSynopsis anime={mal}></AnimeSynopsis>
-                    <AnimeReviewSection reviews={reviews}></AnimeReviewSection>
+                <section className="w-full flex gap-4">
+                    <AnimeOverview anime={mal} />
+                    <AnimeGeneralInfo anime={mal} />
+                </section>
+                <section className="w-full flex flex-col gap-4">
+                    <AnimeSynopsis anime={mal} />
+                    <AnimeReviewSection reviews={reviews} />
                 </section>
 
             </section>
+
+            <section aria-label="Anime detail desktop" className="hidden gap-4 p-2 bg-surface sm:flex">
+                <AnimeOverview anime={mal} />
+
+                <section className="w-4/5 flex flex-col gap-4">
+                    <AnimeGeneralInfo anime={mal} />
+                    <AnimeSynopsis anime={mal} />
+                    <AnimeReviewSection reviews={reviews} />
+                </section>
+
+            </section>
+            
         </article>
     )
 }
