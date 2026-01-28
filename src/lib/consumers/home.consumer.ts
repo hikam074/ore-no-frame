@@ -1,9 +1,6 @@
-import { getAllAnimes } from "../supabase/home.supa";
-import { Anime } from "@/types/anime";
+import { Anime } from "@/types/anime"
+import { apiFetch } from "../api/fetcher"
 
-export async function fetchHomePageData(): Promise<Anime[] | null> {
-    const animes = await getAllAnimes()
-    if (!animes) return null
-
-    return animes
+export function fetchHomeAnime() {
+  return apiFetch<Anime[]>(`/api/anime/suggestion`)
 }

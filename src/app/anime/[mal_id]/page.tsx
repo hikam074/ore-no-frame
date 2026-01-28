@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { fetchAnimePageData } from "@/lib/consumers/anime.consumer";
+import { fetchAnimeDetailPageData } from "@/lib/consumers/anime.consumer";
 
 import { AnimeHeader } from "@/components/anime/AnimeHeader";
 import { AnimeOverview } from "@/components/anime/AnimeOverview";
@@ -16,7 +16,7 @@ export default async function AnimePage({ params }: Props) {
     const par = await params
     const malId = Number(par.mal_id)
 
-    const data = await fetchAnimePageData(malId)
+    const data = await fetchAnimeDetailPageData(malId)
     if (!data) return notFound()
 
     const { mal, reviews } = data
