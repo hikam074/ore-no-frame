@@ -1,6 +1,7 @@
 import "./globals.css"
 import { BackToTop } from "@/components/BackToTop";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -10,11 +11,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="min-h-screen text-text bg-highlight"
+        className="min-h-screen flex flex-col text-text bg-highlight"
       >
         <Navbar />
-        {children}
+        <main className="flex-1">
+          {children}
+        </main>
         <BackToTop />
+        <Footer />
       </body>
     </html>
   );

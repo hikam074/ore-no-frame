@@ -11,6 +11,7 @@ export default function AdminPage() {
             </header>
             {/* ANIME FINDING */}
             <section>
+                <label htmlFor="anime_text">Find Anime</label>
                 <input type="text" name="anime_text" />
             </section>
             {/* REVIEWS INPUT */}
@@ -20,7 +21,7 @@ export default function AdminPage() {
             </section>
             {/* SUBMIT */}
             <section className="flex justify-center">
-                <button className="text-surface text-md font-medium rounded bg-accent px-2 py-1">Submit</button>
+                <button className="text-text_darkmode text-md font-medium rounded bg-accent px-2 py-1">Submit</button>
             </section>
         </article>
     )

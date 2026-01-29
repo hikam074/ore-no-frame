@@ -4,7 +4,7 @@ import { House, Search } from "lucide-react"
 export function Navbar() {
     return (
         <nav className="p-2 bg-accent">
-            <ul className="flex justify-between text-surface font-bold text-sm sm:text-base">
+            <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
                 <li>
                     <Link href="/" className="flex gap-2">
                         <House className="" />

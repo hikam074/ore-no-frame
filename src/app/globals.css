@@ -9,15 +9,18 @@
 .prose li[role='checkbox'] {
   position: relative;
 }
+
 /* checkbox visual (pseudo-element) */
 .prose li[role='checkbox']::before {
-  left: 0.25rem;        
-  top: 0.15rem;         
+  left: 0.25rem;
+  top: 0.15rem;
 }
+
 /* teks span */
-.prose li[role='checkbox'] > span {
+.prose li[role='checkbox']>span {
   padding-left: 1.5rem;
 }
+
 /* checkbox visual (pseudo-element) */
 .prose li[role='checkbox']::after {
   position: absolute;

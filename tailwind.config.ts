@@ -22,11 +22,18 @@ module.exports = {
       colors: {
         bg: "#F8FAFC", // Background utama - Sakura Mist
         surface: "#FFFFFF", // Card / Surface - Soft White
+        surface_darkmode: "#0F172A", // Card / Surface - Ink Black
         border: "#E2E8F0", // Border / Divider - Light Ink
+
         text: "#0F172A", // Text utama - Ink Black
-        muted: "#64748B", // Text secondary - Cool Gray
+        text_darkmode: "#FFFFFF", // Text utama - Soft White
+        text_muted: "#64748B", // Text secondary - Cool Gray
+
+        muted: "#0F172A", // x - Cool Gray
+
         accent: "#FB7185", // Accent utama - Sakura Pink
         accent2: "#A78BFA", // Accent pendukung - Soft Violet
+
         highlight: "#E0F2FE", // Highlight lembut - Sky Tint
       },
     }

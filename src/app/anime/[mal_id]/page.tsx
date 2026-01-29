@@ -12,7 +12,7 @@ type Props = {
     params: { mal_id: string }
 }
 
-export default async function AnimePage({ params }: Props) {
+export default async function AnimeDetailPage({ params }: Props) {
     const par = await params
     const malId = Number(par.mal_id)
 

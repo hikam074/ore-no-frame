@@ -28,7 +28,7 @@ export function AnimeGeneralInfo({ anime }: { anime: MALAnime }) {
 export function AnimeGeneralInfoItem({ property, value }: { property: string, value?: string | number | null }) {
     return (
         <p className="text-text text-sm sm:text-base">
-            <span className=" block text-muted text-xs sm:text-sm">
+            <span className=" block text-text_muted text-xs sm:text-sm">
                 {property}
             </span>
             <span className="font-medium">

@@ -17,7 +17,7 @@ export function AnimeOverview({ anime }: { anime: MALAnime }) {
 
                 {/* button href */}
                 <a href={`https://myanimelist.net/anime/${anime.id}/`} target="_blank"
-                    className="w-full text-xs text-center text-surface py-1 sm:rounded-md bg-accent"
+                    className="w-full text-xs text-center text-text_darkmode py-1 sm:rounded-md bg-accent"
                 >
                     More Information
                 </a>
