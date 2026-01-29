@@ -1,7 +1,10 @@
 import { Review } from "@/types/review"
 import ReactMarkdown from "react-markdown"
 
-export function AnimeReviewSection({ reviews }: { reviews: Review[] }) {
+type AnimeReviewSectionProps = {
+  reviews: Review[]
+}
+const AnimeReviewSection = ({ reviews }: AnimeReviewSectionProps) => {
   return (
     <section>
       {reviews.length === 0 && (
@@ -37,3 +40,4 @@ export function AnimeReviewSection({ reviews }: { reviews: Review[] }) {
     </section>
   )
 }
+export default AnimeReviewSection

@@ -3,7 +3,11 @@ import { Anime } from "@/types/anime"
 import Image from "next/image"
 import { Star, Hash, MessageCircleMore } from "lucide-react";
 
-export function AnimeCard({ anime }: { anime: Anime }) {
+type AnimeCardProps = {
+    anime: Anime
+}
+
+const AnimeCard = ({ anime }: AnimeCardProps) => {
     return (
         <Link key={anime.mal_id} href={`/anime/${anime.mal_id}`}>
             <article className="
@@ -44,3 +48,5 @@ export function AnimeCard({ anime }: { anime: Anime }) {
         </Link>
     )
 }
+
+export default AnimeCard

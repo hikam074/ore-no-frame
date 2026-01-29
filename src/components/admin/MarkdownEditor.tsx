@@ -14,7 +14,7 @@ import {
     CreateLink
 } from '@mdxeditor/editor'
 
-export function MarkdownEditor() {
+const MarkdownEditor = () => {
     return (
         <MDXEditor
             markdown=""
@@ -51,3 +51,5 @@ export function MarkdownEditor() {
         />
     )
 }
+
+export default MarkdownEditor

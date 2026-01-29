@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { House, Search } from "lucide-react"
 
-export function Navbar() {
+const Navbar = () => {
     return (
         <nav className="p-2 bg-accent">
             <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
@@ -25,3 +25,5 @@ export function Navbar() {
         </nav>
     )
 }
+
+export default Navbar

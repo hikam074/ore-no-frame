@@ -1,6 +1,9 @@
 import { MALAnime } from "@/types/mal";
+type AnimeHeaderProps = {
+    anime: MALAnime
+}
 
-export function AnimeHeader({ anime }: { anime: MALAnime }) {
+const AnimeHeader = ({ anime }: AnimeHeaderProps) => {
     return (
         <header className="p-3 bg-highlight">
             <h1 className="text-accent font-bold text-xl sm:text-2xl">{anime.title}</h1>
@@ -12,3 +15,5 @@ export function AnimeHeader({ anime }: { anime: MALAnime }) {
         </header>
     )
 }
+
+export default AnimeHeader

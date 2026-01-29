@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 
 import { fetchAnimeDetailPageData } from "@/lib/consumers/anime.consumer";
 
-import { AnimeHeader } from "@/components/anime/AnimeHeader";
-import { AnimeOverview } from "@/components/anime/AnimeOverview";
-import { AnimeGeneralInfo } from "@/components/anime/AnimeGeneralInfo";
-import { AnimeSynopsis } from "@/components/anime/AnimeSynopsis";
-import { AnimeReviewSection } from "@/components/anime/AnimeReviewSection";
+import AnimeHeader from "@/components/anime/AnimeHeader";
+import AnimeOverview from "@/components/anime/AnimeOverview";
+import AnimeGeneralInfo from "@/components/anime/AnimeGeneralInfo";
+import AnimeSynopsis from "@/components/anime/AnimeSynopsis";
+import AnimeReviewSection from "@/components/anime/AnimeReviewSection";
 
 type Props = {
     params: { mal_id: string }

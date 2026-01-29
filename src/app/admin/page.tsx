@@ -1,6 +1,6 @@
 'use client'
 
-import { MarkdownEditor } from "@/components/admin/MarkdownEditor"
+import MarkdownEditor from "@/components/admin/MarkdownEditor"
 
 export default function AdminPage() {
     return (

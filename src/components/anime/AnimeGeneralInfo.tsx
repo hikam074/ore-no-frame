@@ -1,7 +1,10 @@
 import { MALAnime } from "@/types/mal";
 import { capitalize } from "@/utils/capitalize";
 
-export function AnimeGeneralInfo({ anime }: { anime: MALAnime }) {
+type AnimeGeneralInfoProps = {
+    anime: MALAnime
+}
+const AnimeGeneralInfo = ({ anime }: AnimeGeneralInfoProps) => {
     return (
         <div className="bg-bg p-2 w-full
         grid gap-2 
@@ -25,7 +28,11 @@ export function AnimeGeneralInfo({ anime }: { anime: MALAnime }) {
     )
 }
 
-export function AnimeGeneralInfoItem({ property, value }: { property: string, value?: string | number | null }) {
+type AnimeGeneralInfoItemProps = {
+    property: string, value?: string | number | null
+}
+
+const AnimeGeneralInfoItem = ({ property, value }: AnimeGeneralInfoItemProps) => {
     return (
         <p className="text-text text-sm sm:text-base">
             <span className=" block text-text_muted text-xs sm:text-sm">
@@ -37,3 +44,5 @@ export function AnimeGeneralInfoItem({ property, value }: { property: string, va
         </p>
     )
 }
+
+export default AnimeGeneralInfo

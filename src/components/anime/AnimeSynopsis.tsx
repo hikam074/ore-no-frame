@@ -1,6 +1,10 @@
 import { MALAnime } from "@/types/mal";
 
-export function AnimeSynopsis({ anime }: { anime: MALAnime }) {
+type AnimeSynopsisProps = {
+    anime: MALAnime
+}
+
+const AnimeSynopsis = ({ anime }: AnimeSynopsisProps) => {
     return (
         <div className="text-text_muted leading-relaxed">
             <h2 className="text-text font-medium">Synopsis</h2>
@@ -15,3 +19,5 @@ export function AnimeSynopsis({ anime }: { anime: MALAnime }) {
         </div>
     )
 }
+
+export default AnimeSynopsis
