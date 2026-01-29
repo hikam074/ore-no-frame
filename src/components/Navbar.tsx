@@ -15,11 +15,17 @@ const Navbar = () => {
                     <Link href="/" className="hidden my-auto sm:inline">ORENOFRAME</Link>
                 </li>
                 <li>
-                    <div className="flex gap-4">
-                        <Link href="/" className="my-auto">Anime</Link>
-                        <Link href="/" className="my-auto">Manga</Link>
-                        <Search className="" />
-                    </div>
+                    <ul className="flex gap-4">
+                        <li className="my-auto font-semibold transition-all border-b-2 border-accent hover:scale-105 hover:border-b-2 hover:border-surface">
+                            <Link href="/" className="">Anime</Link>
+                        </li>
+                        <li className="my-auto font-semibold transition-all border-b-2 border-accent hover:scale-105 hover:border-b-2 hover:border-surface">
+                            <Link href="/" className="">Manga</Link>
+                        </li>
+                        <li className="my-auto transition-all hover:scale-105">
+                            <Search className="" />
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

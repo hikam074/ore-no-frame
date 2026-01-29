@@ -21,7 +21,12 @@ const AnimeOverview = ({ anime }: AnimeOverviewProps) => {
 
                 {/* button href */}
                 <a href={`https://myanimelist.net/anime/${anime.id}/`} target="_blank"
-                    className="w-full text-xs text-center text-text_darkmode py-1 sm:rounded-md bg-accent"
+                    className="w-full text-xs text-center py-1 
+                    text-text_darkmode bg-accent 
+                    border border-1 border-accent  
+                    sm:rounded-md 
+                    transition-all hover:bg-surface hover:text-accent hover:sm:scale-[1.01] hover:sm:shadow-lg
+                    "
                 >
                     More Information
                 </a>

@@ -18,10 +18,9 @@ const Footer = () => {
                 <nav>
                     <span className="font-bold border-b-2 border-surface">Quick Links</span>
                     <ul className="font-light">
-                        <li><Link href="/" className="my-auto">Home</Link></li>
-                        <li><Link href="/" className="my-auto">Anime</Link></li>
-                        <li><Link href="/" className="my-auto">Manga</Link></li>
-                        
+                        <li className="hover:font-semibold transition-all"><Link href="/" className="my-auto">Home</Link></li>
+                        <li className="hover:font-semibold transition-all"><Link href="/" className="my-auto">Anime</Link></li>
+                        <li className="hover:font-semibold transition-all"><Link href="/" className="my-auto">Manga</Link></li>
                     </ul>
                 </nav>
             </div>

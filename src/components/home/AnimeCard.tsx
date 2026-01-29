@@ -11,9 +11,10 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
     return (
         <Link key={anime.mal_id} href={`/anime/${anime.mal_id}`}>
             <article className="
-                p-1 flex flex-col items-center text-center
-                bg-surface rounded h-full shadow-2xl
+                p-1 h-full flex flex-col items-center text-center
+                bg-surface rounded shadow-lg transition-all
                 sm:w-48
+                hover:scale-[1.02] hover:shadow-2xl
                 "
             >
                 <Image

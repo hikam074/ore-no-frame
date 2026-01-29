@@ -11,7 +11,7 @@ const AnimeSynopsis = ({ anime }: AnimeSynopsisProps) => {
             <hr />
             <p>{anime.synopsis}</p>
             <a href={`https://myanimelist.net/anime/${anime.id}/`} target="_blank"
-                className="font-light pt-1 italic text-accent"
+                className="font-light pt-1 italic text-accent hover:text-accent2"
             >
                 Source: myanimelist.net
             </a>
