@@ -3,7 +3,7 @@ import { House, Search } from "lucide-react"
 
 const Navbar = () => {
     return (
-        <nav className="p-2 bg-accent">
+        <nav className="p-2 bg-accent top-0 right-0 left-0 fixed">
             <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
                 <li>
                     <Link href="/" className="flex gap-2">

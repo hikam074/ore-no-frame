@@ -19,7 +19,7 @@ export default function RootLayout({
         className="min-h-screen flex flex-col text-text bg-highlight"
       >
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 mt-9">
           {children}
         </main>
         <BackToTop footerRef={footerRef} />

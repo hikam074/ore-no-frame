@@ -55,8 +55,8 @@ const BackToTop = ({ footerRef }: Props ) => {
         rounded-full p-4 shadow-lg transition-all duration-300 border border-accent
         ${
           onFooter
-            ? "bg-text_darkmode text-accent opacity-80 hover:opacity-80"
-            : "bg-accent text-hightlight hover:opacity-80"
+            ? "bg-text_darkmode text-accent"
+            : "bg-accent text-hightlight hover:opacity-90"
         }
       `}
       aria-label="Back to top"
