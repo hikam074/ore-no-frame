@@ -56,7 +56,7 @@ const BackToTop = ({ footerRef }: Props ) => {
         ${
           onFooter
             ? "bg-text_darkmode text-accent"
-            : "bg-accent text-hightlight hover:opacity-90"
+            : "bg-accent text-surface hover:opacity-90"
         }
       `}
       aria-label="Back to top"
