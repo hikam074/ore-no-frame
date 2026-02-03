@@ -1,8 +1,8 @@
-import { MALAnime } from "@/types/mal";
+import { Anime } from "@/types/anime";
 import Image from "next/image";
 
 type AnimeOverviewProps = {
-    anime: MALAnime
+    anime: Anime
 }
 
 const AnimeOverview = ({ anime }: AnimeOverviewProps) => {
@@ -12,7 +12,7 @@ const AnimeOverview = ({ anime }: AnimeOverviewProps) => {
 
                 {/* image */}
                 <Image
-                    src={anime.main_picture?.large ?? 'https://placehold.co/100x300'}
+                    src={anime.image_url }
                     width={600}
                     height={900}
                     alt={anime.title ?? 'placeholder-title'}>
@@ -20,7 +20,7 @@ const AnimeOverview = ({ anime }: AnimeOverviewProps) => {
                 {/* image end */}
 
                 {/* button href */}
-                <a href={`https://myanimelist.net/anime/${anime.id}/`} target="_blank"
+                <a href={`https://myanimelist.net/anime/${anime.mal_id}/`} target="_blank"
                     className="w-full text-xs text-center py-1 
                     text-text_darkmode bg-accent 
                     border border-1 border-accent  

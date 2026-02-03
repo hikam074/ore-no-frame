@@ -1,6 +1,6 @@
-import { AnimePageData } from "@/types/anime-page"
+import { AnimeDetailPageData } from "@/types/anime-page"
 import { apiFetch } from "../api/fetcher"
 
 export function fetchAnimeDetailPageData(malId: number) {
-  return apiFetch<AnimePageData>(`/api/anime/${malId}`)
+  return apiFetch<AnimeDetailPageData>(`/api/anime/${malId}`)
 }

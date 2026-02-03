@@ -13,6 +13,7 @@ export default function AdminPage() {
             <section>
                 <label htmlFor="anime_text">Find Anime</label>
                 <input type="text" name="anime_text" />
+                <button></button>
             </section>
             {/* REVIEWS INPUT */}
             <section className='bg-highlight p-2'>

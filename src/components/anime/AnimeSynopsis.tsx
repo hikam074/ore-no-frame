@@ -1,7 +1,7 @@
-import { MALAnime } from "@/types/mal";
+import { AnimeDetailData } from "@/types/anime-page"
 
 type AnimeSynopsisProps = {
-    anime: MALAnime
+    anime: AnimeDetailData
 }
 
 const AnimeSynopsis = ({ anime }: AnimeSynopsisProps) => {
@@ -10,7 +10,7 @@ const AnimeSynopsis = ({ anime }: AnimeSynopsisProps) => {
             <h2 className="text-text font-medium">Synopsis</h2>
             <hr />
             <p>{anime.synopsis}</p>
-            <a href={`https://myanimelist.net/anime/${anime.id}/`} target="_blank"
+            <a href={`https://myanimelist.net/anime/${anime.mal_id}/`} target="_blank"
                 className="font-light pt-1 italic text-accent hover:text-accent2"
             >
                 Source: myanimelist.net

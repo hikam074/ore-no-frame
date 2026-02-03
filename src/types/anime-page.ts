@@ -1,9 +1,14 @@
-import { MALAnime } from "./mal"
-import { Review } from "./review"
-import { Anime } from "./anime"
+import { Review } from "@/types/review"
+import { Anime } from "@/types/anime"
 
-export type AnimePageData = {
-  mal: MALAnime
+export type AnimeDetailData = Anime & {  
+  title_ja: string
+  title_en: string
+  studios: string[]
+  genres: string[]
+  synopsis: string
+}
+export type AnimeDetailPageData = {
+  metadata: AnimeDetailData
   reviews: Review[]
-  dbAnime: Anime | null
 }
