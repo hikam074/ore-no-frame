@@ -1,25 +1,25 @@
-"use client"
-
 import "./globals.css"
-import BackToTop from "@/components/BackToTop";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { useRef } from "react";
+import { AuthProvider } from "@/components/auth/AuthProvider"
+import { createSupabaseServer } from "@/lib/supabase/server"
+// import ClientLayout from "@/components/layout/ClientLayout"
 
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const supabase = await createSupabaseServer()
+  const { data: { user } } = await supabase.auth.getUser()
 
-export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
-  const footerRef = useRef<HTMLDivElement>(null)
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col text-text bg-highlight" >
-        <Navbar />
-        <main className="flex-1 mt-9">
-          {children}
-        </main>
-        <BackToTop footerRef={footerRef} />
-        <div ref={footerRef} className="h-px" />
-        <Footer />
+      <body className="min-h-screen flex flex-col text-text bg-highlight">
+        <AuthProvider user={user}>
+          {/* <ClientLayout> */}
+            {children}
+          {/* </ClientLayout> */}
+        </AuthProvider>
       </body>
     </html>
-  );
+  )
 }
