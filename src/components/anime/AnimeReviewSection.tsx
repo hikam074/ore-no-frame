@@ -19,7 +19,7 @@ const AnimeReviewSection = ({ reviews }: AnimeReviewSectionProps) => {
         <section key={review.id}>
           <div className="flex justify-between">
             <h2 className="text-text text-lg font-medium">Review</h2>
-            <span className="font-light text-accent italic">By {review.reviewer}</span>
+            <span className="font-light text-accent italic">By {review.reviewer_name}</span>
           </div>
           <hr />
 
