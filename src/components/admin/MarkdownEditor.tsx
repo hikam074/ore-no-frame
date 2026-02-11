@@ -55,7 +55,7 @@ const MarkdownEditor = ({ initValue = "", onChange }: MarkdownEditorProps) => {
                         <>
                             <UndoRedo />
                             <BlockTypeSelect />
-                            <BoldItalicUnderlineToggles />
+                            <BoldItalicUnderlineToggles options={['Bold', 'Italic']} />
                             <ListsToggle />
                             <CreateLink />
                         </>

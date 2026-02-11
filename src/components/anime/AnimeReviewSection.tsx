@@ -1,4 +1,5 @@
 import { Review } from "@/types/review"
+import remarkGfm from "remark-gfm"
 import ReactMarkdown from "react-markdown"
 
 type AnimeReviewSectionProps = {
@@ -31,7 +32,7 @@ const AnimeReviewSection = ({ reviews }: AnimeReviewSectionProps) => {
             max-w-none leading-relaxed text-text_muted mb-2
           "
           >
-            <ReactMarkdown>{review.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{review.content}</ReactMarkdown>
           </article>
         </section>
       ))}
