@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { AnimeSearchResult } from "@/types/admin-page"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
 import { useConfirm } from "@/components/layout/ConfirmContext";
-import { showError, showGlobalLoading } from "@/lib/toast"
+import { dismissGlobalLoading, showError, showGlobalLoading } from "@/lib/toast"
 import { setFlash } from "@/lib/flash"
 
 export default function AdminPage() {
@@ -55,6 +55,7 @@ export default function AdminPage() {
                 })
             })
             if (!res.ok) {
+                dismissGlobalLoading()
                 showError("Failed to create review")
                 return;
             }
@@ -63,10 +64,11 @@ export default function AdminPage() {
             router.push(`/anime/${anime.mal_id}`);
             return
         } catch (err: unknown) {
+            dismissGlobalLoading()
             if (err instanceof Error) {
                 showError(err.message)
             } else {
-                showError("Login gagal")
+                showError("Review failed")
             }
         }
     }
