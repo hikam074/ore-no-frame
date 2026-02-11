@@ -48,8 +48,8 @@ export default function LoginPage() {
                 <span className="my-auto">俺のフレーム</span>
             </Link>
             <header className="w-full">
-                <h1 className="text-xl font-bold">Selamat Datang Kembali!</h1>
-                <p className="font-light text-text_muted">Silahkan login</p>
+                <h1 className="text-xl font-bold">Welcome Back!</h1>
+                <p className="font-light text-text_muted">Login</p>
             </header>
             <section className="w-full space-y-6">
                 <InputForm name="email" type="text" onChange={e => setEmail(e.target.value)} />
