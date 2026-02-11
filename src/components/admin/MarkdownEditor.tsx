@@ -13,11 +13,32 @@ import {
     ListsToggle,
     CreateLink
 } from '@mdxeditor/editor'
+import { useEffect, useRef } from 'react'
 
-const MarkdownEditor = () => {
+type MarkdownEditorProps = {
+    initValue: string,
+    onChange: (value: string) => void
+}
+
+const MarkdownEditor = ({ initValue = "", onChange }: MarkdownEditorProps) => {
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const handleChange = (value: string) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current)
+        }
+        timeoutRef.current = setTimeout(() => {
+            onChange(value)
+        }, 500)
+    }
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) { clearTimeout(timeoutRef.current) }
+        }
+    }, [])
     return (
         <MDXEditor
-            markdown=""
+            markdown={initValue}
+            onChange={handleChange}
             plugins={[
                 headingsPlugin({
                     allowedHeadingLevels: [3, 4, 5, 6],

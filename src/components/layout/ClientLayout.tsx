@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import BackToTop from "@/components/BackToTop"
 import { useRef } from "react"
+import { ConfirmProvider } from "./ConfirmContext"
 
 export default function ClientLayout({
   children,
@@ -17,7 +18,9 @@ export default function ClientLayout({
       <Navbar />
 
       <main className="flex-1 mt-9">
-        {children}
+        <ConfirmProvider>
+          {children}
+        </ConfirmProvider>
       </main>
 
       <BackToTop footerRef={footerRef} />

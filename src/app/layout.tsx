@@ -2,6 +2,7 @@ import "./globals.css"
 import { AuthProvider } from "@/components/auth/AuthProvider"
 import { createSupabaseServer } from "@/lib/supabase/server"
 import { UserProfile } from "@/types/auth"
+import { Toaster } from "react-hot-toast"
 
 export default async function RootLayout({
   children,
@@ -27,6 +28,7 @@ export default async function RootLayout({
         <AuthProvider user={user} profile={profile}>
           {children}
         </AuthProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   )

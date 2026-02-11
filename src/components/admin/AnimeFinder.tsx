@@ -4,11 +4,18 @@ import { capitalize } from "@/utils/capitalize"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 
-const AnimeFinder = () => {
+type AnimeFinderProps = {
+    onSelect: (selected: AnimeSearchResult) => void
+}
+const AnimeFinder = ({onSelect}: AnimeFinderProps) => {
     const [query, setQuery] = useState("")
     const [results, setResults] = useState<AnimeSearchResult[]>([])
     const [loading, setLoading] = useState(false)
     const [selected, setSelected] = useState<AnimeSearchResult | null>(null)
+
+    const handleSelect = (anime: AnimeSearchResult) => {
+        onSelect(anime)
+    }
 
     useEffect(() => {
         if (query.trim().length < 3) {
@@ -55,7 +62,7 @@ const AnimeFinder = () => {
                     <ul>
                         {results.map(anime => (
                             <li key={anime.mal_id}
-                                onClick={() => setSelected(anime)}
+                                onClick={() => {setSelected(anime); handleSelect(anime)}}
                                 className="
                                     p-2 border border-b border-x-transparent border-t-transparent flex justify-between gap-2 cursor-pointer transition-all
                                     hover:border-accent2 hover:border-2

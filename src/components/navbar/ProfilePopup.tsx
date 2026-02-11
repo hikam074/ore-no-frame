@@ -52,7 +52,12 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
             <p className="text-text_muted text-xs font-thin">{user ? user?.email : ''}</p>
             <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Silahkan login untuk mengakses fitur lengkap')}</p>
             {user &&
-                <button className="text-accent border px-2 py-1 text-xs mt-4" onClick={logout}>Logout</button>
+                <div className="space-x-1">
+                    <Link href="/admin">
+                        <button className="text-accent border px-2 py-1 text-xs mt-4">Create Review</button>
+                    </Link>
+                    <button className="text-accent border px-2 py-1 text-xs mt-4" onClick={logout}>Logout</button>
+                </div>
             }
             {!user &&
                 <Link href="/auth/login">
