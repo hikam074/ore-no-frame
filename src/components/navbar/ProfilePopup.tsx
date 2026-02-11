@@ -70,7 +70,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
         >
             <p className="text-accent text-sm font-semibold">{user ? user?.name : ''}</p>
             <p className="text-text_muted text-xs font-thin">{user ? user?.email : ''}</p>
-            <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Silahkan login untuk mengakses fitur lengkap')}</p>
+            <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Login to access all the features')}</p>
             {user &&
                 <div className="space-x-1">
                     <Link href="/admin" onClick={onClose}>

@@ -36,9 +36,13 @@ export default function AdminPage() {
 
         try {
             showGlobalLoading("Publishing review...")
-            
+
             const supabase = await createSupabaseBrowser()
             const { data: { session } } = await supabase.auth.getSession()
+            const sanitizedReview = review
+                .replace(/\r\n/g, "\n")        // normalize windows newline
+                .replace(/\n{3,}/g, "\n\n")    // max 2 newline
+                .replace(/\n\n(\d+\.)/g, "\n$1") // hapus blank line sebelum numbered list
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/review`, {
                 method: "POST",
                 headers: {
@@ -47,14 +51,14 @@ export default function AdminPage() {
                 },
                 body: JSON.stringify({
                     mal_id: anime.mal_id,
-                    review: review
+                    review: sanitizedReview
                 })
             })
             if (!res.ok) {
                 showError("Failed to create review")
                 return;
             }
-            
+
             setFlash("success", "Review created");
             router.push(`/anime/${anime.mal_id}`);
             return
