@@ -19,8 +19,8 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
             >
                 <Image
                     src={anime.image_url ?? 'https://placehold.co/100x300'}
-                    width={100}
-                    height={150}
+                    width={600}
+                    height={900}
                     alt={anime.title ?? 'placeholder-title'}
                     className="w-full rounded"
                 />
