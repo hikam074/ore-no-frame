@@ -22,22 +22,19 @@ export default function LoginPage() {
                 password
             })
             if (error) {
-                // setFlash("error", "Login gagal");
-                // return;
                 throw new Error(error.message)
             }
-            // dismissLoading()
-
-            setFlash("success", "Login berhasil");
-
-            router.push("/");
-            router.refresh();
-
+            else {
+                setFlash("success", "Login success! Welcome");
+    
+                router.push("/");
+                router.refresh();
+            }
         } catch (err: unknown) {
             if (err instanceof Error) {
                 showError(err.message)
             } else {
-                showError("Login gagal")
+                showError("Login failed")
             }
         }
 

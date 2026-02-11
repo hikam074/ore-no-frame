@@ -26,11 +26,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col text-text bg-highlight">
-          <AuthProvider user={user} profile={profile}>
-            {children}
-          </AuthProvider>
+        <AuthProvider user={user} profile={profile}>
+          {children}
+        </AuthProvider>
         <FlashListener />
-        <Toaster position="top-right" />
+        <Toaster position="top-right"
+          // containerStyle={{
+          //   top: 50,
+          //   right: 20,
+          // }}
+        />
       </body>
     </html>
   )

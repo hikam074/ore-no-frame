@@ -58,10 +58,12 @@ export default function AdminPage() {
             setFlash("success", "Review created");
             router.push(`/anime/${anime.mal_id}`);
             return
-        } catch (err) {
-            // setFlash("error", "Terjadi kesalahan")
-            showError("xxx")
-            return
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                showError(err.message)
+            } else {
+                showError("Login gagal")
+            }
         }
     }
 
