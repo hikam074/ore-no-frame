@@ -15,17 +15,17 @@ export default function ClientLayout({
 
   return (
     <>
-      <Navbar />
+      <ConfirmProvider>
+        <Navbar />
 
-      <main className="flex-1 mt-9">
-        <ConfirmProvider>
+        <main className="flex-1 mt-9">
           {children}
-        </ConfirmProvider>
-      </main>
+        </main>
 
-      <BackToTop footerRef={footerRef} />
-      <div ref={footerRef} className="h-px" />
-      <Footer />
+        <BackToTop footerRef={footerRef} />
+        <div ref={footerRef} className="h-px" />
+        <Footer />
+      </ConfirmProvider>
     </>
   )
 }

@@ -3,11 +3,12 @@
 import MarkdownEditor from "@/components/admin/MarkdownEditor"
 import AnimeFinder from "@/components/admin/AnimeFinder"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { AnimeSearchResult } from "@/types/admin-page"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
-import toast from "react-hot-toast"
-import { useRouter } from "next/navigation"
 import { useConfirm } from "@/components/layout/ConfirmContext";
+import { showError, showGlobalLoading } from "@/lib/toast"
+import { setFlash } from "@/lib/flash"
 
 export default function AdminPage() {
     const [review, setReview] = useState('')
@@ -19,11 +20,11 @@ export default function AdminPage() {
         media_type: '',
         year: 0,
     })
-    const router = useRouter()
     const { confirm } = useConfirm();
+    const router = useRouter()
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        
+
         // konfirmasi
         const ok = await confirm({
             type: 'create',
@@ -32,45 +33,35 @@ export default function AdminPage() {
         });
         if (!ok) return;
 
-        const supabase = await createSupabaseBrowser()
-        const { data: { session } } = await supabase.auth.getSession()
 
-        async function createReview(token: string | undefined) {
+        try {
+            showGlobalLoading("Publishing review...")
+            
+            const supabase = await createSupabaseBrowser()
+            const { data: { session } } = await supabase.auth.getSession()
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/review`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${session?.access_token}`,
                 },
                 body: JSON.stringify({
                     mal_id: anime.mal_id,
                     review: review
                 })
             })
-
-            const data = await res.json()
-
             if (!res.ok) {
-                throw new Error(data.message)
+                showError("Failed to create review")
+                return;
             }
-
-            return data
-        }
-
-        try {
-            toast.promise(
-                createReview(session?.access_token),
-                {
-                    loading: "Posting review...",
-                    success: (data) => {
-                        router.push(`/anime/${data.data.mal_id}`)
-                        return "Review created successfully!"
-                    },
-                    error: (err) => err.message
-                }
-            )
+            
+            setFlash("success", "Review created");
+            router.push(`/anime/${anime.mal_id}`);
+            return
         } catch (err) {
-            console.log(err)
+            // setFlash("error", "Terjadi kesalahan")
+            showError("xxx")
+            return
         }
     }
 

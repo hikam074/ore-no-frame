@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, ComponentType } from "react";
 import { Spinner, SuccessIcon, ErrorIcon, WarningIcon } from "./ConfirmIcon";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -7,29 +7,37 @@ type ConfirmOptions = {
     title: string;
     message?: string;
 };
-
+type ConfirmStyle = {
+    bg: string;
+    button: string;
+    icon?: ComponentType;
+};
 type ConfirmContextType = {
     confirm: (options: ConfirmOptions) => Promise<boolean>;
 };
 
 type ConfirmType = "create" | "delete" | "warning" | "info";
 
-const confirmStyles = {
+const confirmStyles: Record<ConfirmType, ConfirmStyle> = {
     create: {
         bg: "bg-green-50",
         button: "bg-green-500 hover:bg-green-600",
+        icon: Spinner
     },
     delete: {
         bg: "bg-red-50",
         button: "bg-red-500 hover:bg-red-600",
+        icon: ErrorIcon
     },
     warning: {
         bg: "bg-yellow-50",
         button: "bg-yellow-500 hover:bg-yellow-600",
+        icon: WarningIcon
     },
     info: {
         bg: "bg-blue-50",
         button: "bg-blue-500 hover:bg-blue-600",
+        icon: SuccessIcon
     },
 };
 
@@ -69,6 +77,9 @@ export const ConfirmProvider = ({ children }: { children: React.ReactNode }) => 
         setOptions(null);
     };
 
+    const style = confirmStyles[options?.type ?? "info"];
+    const Icon = style.icon;
+
     return (
         <ConfirmContext.Provider value={{ confirm }}>
             {children}
@@ -96,7 +107,7 @@ export const ConfirmProvider = ({ children }: { children: React.ReactNode }) => 
                             <div className="flex flex-col items-center gap-3 mb-3">
 
                                 <div className="w-10">
-                                    <WarningIcon />
+                                    {Icon && <Icon />}
                                 </div>
 
                                 <h2 className="text-lg font-semibold">

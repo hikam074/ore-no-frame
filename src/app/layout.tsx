@@ -1,8 +1,9 @@
+import FlashListener from "@/components/FlashListener";
 import "./globals.css"
 import { AuthProvider } from "@/components/auth/AuthProvider"
 import { createSupabaseServer } from "@/lib/supabase/server"
 import { UserProfile } from "@/types/auth"
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 
 export default async function RootLayout({
   children,
@@ -25,9 +26,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col text-text bg-highlight">
-        <AuthProvider user={user} profile={profile}>
-          {children}
-        </AuthProvider>
+          <AuthProvider user={user} profile={profile}>
+            {children}
+          </AuthProvider>
+        <FlashListener />
         <Toaster position="top-right" />
       </body>
     </html>

@@ -5,7 +5,6 @@ export function Spinner() {
 }
 export function SuccessIcon() {
   return (
-    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-green-500">
       <svg
         className="w-4 h-4 text-white"
         fill="none"
@@ -15,13 +14,12 @@ export function SuccessIcon() {
       >
         <path d="M5 13l4 4L19 7" />
       </svg>
-    </div>
   )
 }
 
 export function ErrorIcon() {
   return (
-    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500">
+    
       <svg
         className="w-4 h-4 text-white"
         fill="none"
@@ -31,7 +29,7 @@ export function ErrorIcon() {
       >
         <path d="M6 18L18 6M6 6l12 12" />
       </svg>
-    </div>
+    
   )
 }
 

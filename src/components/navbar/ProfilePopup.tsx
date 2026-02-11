@@ -6,7 +6,10 @@ import { capitalize } from "@/utils/capitalize"
 import { useRouter } from "next/navigation"
 import { createPortal } from "react-dom"
 import { useEffect, useRef } from "react"
+import { useConfirm } from "@/components/layout/ConfirmContext";
 import Link from "next/link"
+import { showGlobalLoading } from "@/lib/toast"
+import { setFlash } from "@/lib/flash"
 
 type ProfilePopupProps = {
     open: boolean
@@ -18,6 +21,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
     const user = useUser()
     const supabase = createSupabaseBrowser()
     const router = useRouter()
+    const { confirm } = useConfirm()
 
     useEffect(() => {
         if (!open) return
@@ -35,8 +39,24 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
     if (!open) return null
     if (typeof window === "undefined") return null
 
+
+
     const logout = async () => {
+        onClose()
+        // konfirmasi
+        const ok = await confirm({
+            type: 'warning',
+            title: "Logout?",
+            message: "You need to log in next time to access more features."
+        });
+        if (!ok) return;
+
+        showGlobalLoading("Logging out...")
+
         await supabase.auth.signOut()
+
+        setFlash("success", "Logged out!");
+
         router.push('/auth/login')
         router.refresh()
     }
@@ -53,7 +73,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
             <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Silahkan login untuk mengakses fitur lengkap')}</p>
             {user &&
                 <div className="space-x-1">
-                    <Link href="/admin">
+                    <Link href="/admin" onClick={onClose}>
                         <button className="text-accent border px-2 py-1 text-xs mt-4">Create Review</button>
                     </Link>
                     <button className="text-accent border px-2 py-1 text-xs mt-4" onClick={logout}>Logout</button>
