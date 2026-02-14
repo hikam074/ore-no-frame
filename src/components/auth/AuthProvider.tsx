@@ -1,6 +1,8 @@
 'use client'
 
-import { createContext, useContext } from "react"
+import { createContext, useContext, useEffect } from "react"
+import { createSupabaseBrowser } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
 import type { User } from "@supabase/supabase-js"
 import type { AuthUser, UserProfile } from "@/types/auth"
 
@@ -13,6 +15,25 @@ type AuthProviderProps = {
 const authContext = createContext<AuthUser | null>(null)
 
 export function AuthProvider({ user, profile, children }: AuthProviderProps) {
+    const router = useRouter()
+    const supabase = createSupabaseBrowser()
+
+    useEffect(() => {
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((event, session) => {
+            // Jika user sign out atau token kedaluwarsa, refresh halaman/redirect
+            if (event === 'SIGNED_OUT' || (event === 'TOKEN_REFRESHED' && !session)) {
+                router.push('/auth/login')
+                router.refresh()
+            }
+        })
+
+        return () => {
+            subscription.unsubscribe()
+        }
+    }, [router, supabase])
+
     if (!user) {
         return (
             <authContext.Provider value={null}>
