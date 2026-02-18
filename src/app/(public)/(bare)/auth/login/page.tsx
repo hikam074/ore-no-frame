@@ -39,7 +39,7 @@ export default function LoginPage() {
             else {
                 setFlash("success", "Login success! Welcome");
 
-                router.refresh();
+                await router.refresh();
                 router.push("/");
             }
         } catch (err: unknown) {
