@@ -3,7 +3,6 @@
 import { useUser } from "../auth/AuthProvider"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
 import { capitalize } from "@/utils/capitalize"
-// import { useRouter } from "next/navigation"
 import { createPortal } from "react-dom"
 import { useEffect, useRef } from "react"
 import { useConfirm } from "@/components/layout/ConfirmContext";
@@ -20,7 +19,6 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null)
     const { user, setUser } = useUser()
     const supabase = createSupabaseBrowser()
-    // const router = useRouter()
     const { confirm } = useConfirm()
 
     useEffect(() => {

@@ -5,15 +5,14 @@ import { ReactNode } from "react"
 export default async function ProtectedLayout({ children }: { children: ReactNode }) {
   const supabase = await createSupabaseServer()
 
-  // Gunakan getUser() untuk keamanan lebih baik di server
   const { data: { user }, error } = await supabase.auth.getUser()
 
-  // Jika tidak ada user atau error, lempar ke login
+  // jika tidak ada user atau error, lempar ke login
   if (error || !user) {
     redirect("/auth/login")
   }
 
-  // Jika aman, render halaman
+  // jika aman, render halaman
   return (
     <>
       {children}

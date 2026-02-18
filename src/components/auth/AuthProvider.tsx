@@ -29,11 +29,31 @@ export function AuthProvider({ user, profile, children }: { user: User | null, p
 
     useEffect(() => {
         const { data: { subscription } } =
-            supabase.auth.onAuthStateChange((event) => {
+            supabase.auth.onAuthStateChange(async (event, session) => {
                 if (event === 'SIGNED_OUT') {
                     setAuthUser(null)
-                    router.refresh() 
-                    router.replace('/auth/login') 
+                    router.refresh()
+                    router.replace('/auth/login')
+                }
+
+                if (event === 'SIGNED_IN' && session?.user) {
+                    const u = session.user
+
+                    // fetch profile langsung dari supabase browser client
+                    const { data: profileData } = await supabase
+                        .from('profiles')
+                        .select('name, role')
+                        .eq('id', u.id)
+                        .single()
+
+                    setAuthUser({
+                        id: u.id,
+                        email: u.email ?? '',
+                        name: profileData?.name ?? '',
+                        role: profileData?.role ?? '',
+                    })
+
+                    router.refresh()
                 }
             })
 
