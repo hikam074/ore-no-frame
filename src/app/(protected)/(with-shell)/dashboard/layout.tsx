@@ -13,7 +13,7 @@ export default function DashboardLayout({
 
     return (
         <>
-            <Navbar onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
+            <Navbar sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
 
             <div className="flex gap-2">
                 {sidebarOpen &&

@@ -3,19 +3,17 @@ import { redirect } from "next/navigation"
 import { ReactNode } from "react"
 
 export default async function ProtectedLayout({ children }: { children: ReactNode }) {
-  // 1. Inisialisasi client Supabase di sisi server
   const supabase = await createSupabaseServer()
 
-  // 2. Cek user session
-  // Hati-hati: getUser() lebih aman daripada getSession() untuk proteksi route di server
+  // Gunakan getUser() untuk keamanan lebih baik di server
   const { data: { user }, error } = await supabase.auth.getUser()
 
-  // 3. Jika error atau user tidak ada, tendang ke login
+  // Jika tidak ada user atau error, lempar ke login
   if (error || !user) {
     redirect("/auth/login")
   }
 
-  // 4. Jika aman, render halaman di bawahnya
+  // Jika aman, render halaman
   return (
     <>
       {children}

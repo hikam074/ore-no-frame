@@ -12,9 +12,8 @@ const ProfilePopup = dynamic(
     { ssr: false }
 )
 
-const Navbar = ({ onToggleSidebar }: {onToggleSidebar: () => void}) => {
+const Navbar = ({ sidebarOpen, onToggleSidebar }: {sidebarOpen: boolean, onToggleSidebar: () => void}) => {
     const [open, setOpen] = useState(false)
-    // const [openSidebar, setOpenSidebar] = useState(false)
 
     const { user, setUser } = useUser()
     const pathname = usePathname()
@@ -25,7 +24,13 @@ const Navbar = ({ onToggleSidebar }: {onToggleSidebar: () => void}) => {
             <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
                 <li className="flex gap-2">
                     { user && isDashboard &&
-                        <button onClick={onToggleSidebar} className="mt-1 rounded-t-md bg-white text-accent hover:text-accent2 px-2">
+                        <button onClick={onToggleSidebar} className={`
+                        mt-1 rounded-t-md px-2 border border-b-0 transition-all
+                        ${sidebarOpen
+                            ? "bg-white text-accent hover:text-accent2"
+                            : "bg-accent text-white hover:bg-highlight hover:text-accent"
+                        }
+                        `}>
                             <Menu className="" />
                         </button>
                     }
