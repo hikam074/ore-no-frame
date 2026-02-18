@@ -19,7 +19,7 @@ export default function ClientProtectedLayout({
   return (
     <>
       <ConfirmProvider>
-        <Navbar onToggleSidebar={() => {}} />
+        <Navbar sidebarOpen={false} onToggleSidebar={() => {}} />
 
         <div className="flex gap-4 mt-10">
           <main className="flex-1">

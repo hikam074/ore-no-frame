@@ -39,8 +39,8 @@ export default function LoginPage() {
             else {
                 setFlash("success", "Login success! Welcome");
 
-                router.push("/");
                 router.refresh();
+                router.push("/");
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
