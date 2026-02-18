@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createSupabaseServer } from "@/lib/supabase/server"
-import ClientLayout from "@/components/layout/ClientLayout"
+import ClientProtectedLayout from "@/components/layout/ClientProtectedLayout"
 
 export default async function ProtectedShellLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createSupabaseServer()
@@ -8,5 +8,5 @@ export default async function ProtectedShellLayout({ children }: { children: Rea
 
   if (!user) redirect("/auth/login")
 
-  return <ClientLayout>{children}</ClientLayout>
+  return <ClientProtectedLayout>{children}</ClientProtectedLayout>
 }

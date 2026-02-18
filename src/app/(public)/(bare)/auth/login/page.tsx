@@ -9,6 +9,18 @@ import { House } from "lucide-react"
 import { showError, showGlobalLoading } from "@/lib/toast"
 import { setFlash } from "@/lib/flash"
 
+export function InputForm({ name, type, onChange }: { name: string, type: string, onChange: (e: ChangeEvent<HTMLInputElement>) => void }) {
+    return (
+        <div className="w-full  text-accent2">
+            <label htmlFor={name}
+                className="bg-surface px-1 absolute -translate-y-3 translate-x-2"
+            >{capitalize(name)}</label>
+            <input name={name} type={type} onChange={onChange}
+                className="w-full border border-border p-2 pt-3 rounded-md text-surface_darkmode" />
+        </div>
+    )
+}
+
 export default function LoginPage() {
     const supabase = createSupabaseBrowser()
     const router = useRouter()
@@ -26,7 +38,7 @@ export default function LoginPage() {
             }
             else {
                 setFlash("success", "Login success! Welcome");
-    
+
                 router.push("/");
                 router.refresh();
             }
@@ -39,7 +51,6 @@ export default function LoginPage() {
         }
 
     }
-
 
     return (
         <article className="flex flex-col gap-10 justify-center items-center text-center bg-surface p-8 text-accent rounded shadow-lg">
@@ -57,16 +68,5 @@ export default function LoginPage() {
                 <button onClick={handleLogin} className="p-2 bg-accent2 w-full rounded-md text-surface font-semibold">Login</button>
             </section>
         </article>
-    )
-}
-export function InputForm({ name, type, onChange }: { name: string, type: string, onChange: (e: ChangeEvent<HTMLInputElement>) => void }) {
-    return (
-        <div className="w-full  text-accent2">
-            <label htmlFor={name}
-                className="bg-surface px-1 absolute -translate-y-3 translate-x-2"
-            >{capitalize(name)}</label>
-            <input name={name} type={type} onChange={onChange}
-                className="w-full border border-border p-2 pt-3 rounded-md text-surface_darkmode" />
-        </div>
     )
 }

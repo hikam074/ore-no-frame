@@ -18,7 +18,7 @@ type ProfilePopupProps = {
 
 const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null)
-    const user = useUser()
+    const { user, setUser } = useUser()
     const supabase = createSupabaseBrowser()
     const router = useRouter()
     const { confirm } = useConfirm()
@@ -54,7 +54,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
         showGlobalLoading("Logging out...")
 
         await supabase.auth.signOut()
-
+        setUser(null) 
         setFlash("success", "Logged out!");
 
         router.push('/auth/login')
@@ -72,11 +72,14 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
             <p className="text-text_muted text-xs font-thin">{user ? user?.email : ''}</p>
             <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Login to access all the features')}</p>
             {user &&
-                <div className="space-x-1">
+                <div className="gap-2 flex flex-col items-end">
                     <Link href="/admin" onClick={onClose}>
-                        <button className="text-accent border px-2 py-1 text-xs mt-4">Create Review</button>
+                        <button className="text-accent border px-2 py-1 text-xs">Create Review</button>
                     </Link>
-                    <button className="text-accent border px-2 py-1 text-xs mt-4" onClick={logout}>Logout</button>
+                    <Link href="/dashboard" onClick={onClose}>
+                    <button className="text-accent border px-2 py-1 text-xs">Dashboard</button>
+                    </Link>
+                    <button className="text-accent border px-2 py-1 text-xs" onClick={logout}>Logout</button>
                 </div>
             }
             {!user &&

@@ -5,8 +5,9 @@ import Footer from "@/components/Footer"
 import BackToTop from "@/components/BackToTop"
 import { useRef, useState } from "react"
 import { ConfirmProvider } from "./ConfirmContext"
+import SidebarDashboard from "@/components/dashboard/SidebarDashboard"
 
-export default function ClientLayout({
+export default function ClientProtectedLayout({
   children,
 }: {
   children: React.ReactNode
@@ -18,11 +19,16 @@ export default function ClientLayout({
   return (
     <>
       <ConfirmProvider>
-        <Navbar onToggleSidebar={() => setSidebarOpen(false)} />
+        <Navbar onToggleSidebar={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 mt-9">
-          {children}
-        </main>
+        <div className="flex gap-4 mt-9">
+
+          <SidebarDashboard />
+
+          <main className="flex-1">
+            {children}
+          </main>
+        </div>
 
         <BackToTop footerRef={footerRef} />
         <div ref={footerRef} className="h-px" />
