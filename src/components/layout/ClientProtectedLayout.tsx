@@ -14,17 +14,14 @@ export default function ClientProtectedLayout({
 }) {
   const footerRef = useRef<HTMLDivElement>(null)
 
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  
 
   return (
     <>
       <ConfirmProvider>
-        <Navbar onToggleSidebar={() => setSidebarOpen(true)} />
+        <Navbar onToggleSidebar={() => {}} />
 
-        <div className="flex gap-4 mt-9">
-
-          <SidebarDashboard />
-
+        <div className="flex gap-4 mt-10">
           <main className="flex-1">
             {children}
           </main>

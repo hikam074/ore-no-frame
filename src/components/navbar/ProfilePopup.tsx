@@ -54,11 +54,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
         showGlobalLoading("Logging out...")
 
         await supabase.auth.signOut()
-        setUser(null) 
         setFlash("success", "Logged out!");
-
-        router.push('/auth/login')
-        router.refresh()
     }
 
     return createPortal(

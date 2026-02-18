@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function DashboardPage() {
     return (
-        <section className="flex gap-4 min-h-screen">
+        <section className="flex-1 p-2">
             HAHAHA
         </section>
     )

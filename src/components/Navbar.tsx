@@ -4,7 +4,8 @@ import Link from "next/link"
 import { House, Search, CircleUser, Menu } from "lucide-react"
 import { useState } from "react"
 import dynamic from "next/dynamic"
-// import { useUser } from "./auth/AuthProvider"
+import { useUser } from "./auth/AuthProvider"
+import { usePathname } from "next/navigation"
 
 const ProfilePopup = dynamic(
     () => import("./navbar/ProfilePopup"),
@@ -13,16 +14,18 @@ const ProfilePopup = dynamic(
 
 const Navbar = ({ onToggleSidebar }: {onToggleSidebar: () => void}) => {
     const [open, setOpen] = useState(false)
-    // const [openSidebar, setOpenSidebar] = useState(false)
+    const [openSidebar, setOpenSidebar] = useState(false)
 
-    // const user = useUser()
+    const { user, setUser } = useUser()
+    const pathname = usePathname()
+    const isDashboard = pathname.startsWith("/dashboard")
 
     return (
         <nav className="px-2 bg-accent top-0 right-0 left-0 fixed z-[999]">
             <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
-                <li className="flex items-center gap-2">
-                    {onToggleSidebar &&
-                        <button onClick={onToggleSidebar} className="hover:bg-slate-600 p-2">
+                <li className="flex gap-2">
+                    { user && isDashboard &&
+                        <button onClick={onToggleSidebar} className="mt-1 rounded-t-md bg-white text-accent hover:text-accent2 px-2">
                             <Menu className="" />
                         </button>
                     }

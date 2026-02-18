@@ -4,9 +4,9 @@ import { LayoutDashboardIcon, StarIcon, CircleUser, SquarePen, ExternalLink } fr
 export default function SidebarDashboard() {
     return (
         <section className="flex bg-white min-h-screen">
-            <ul className="text-text pt-3">
+            <ul className="text-text">
                 <li>
-                    <Link href={"/"} className="px-5 py-3 flex gap-3 items-center hover:bg-accent2 hover:text-surface">
+                    <Link href={"/dashboard"} className="px-5 py-3 flex gap-3 items-center hover:bg-accent2 hover:text-surface">
                         <LayoutDashboardIcon />
                         <span>Dashboard</span>
                     </Link>
