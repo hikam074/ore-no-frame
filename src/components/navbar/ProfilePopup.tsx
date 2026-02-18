@@ -3,7 +3,7 @@
 import { useUser } from "../auth/AuthProvider"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
 import { capitalize } from "@/utils/capitalize"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import { createPortal } from "react-dom"
 import { useEffect, useRef } from "react"
 import { useConfirm } from "@/components/layout/ConfirmContext";
@@ -20,7 +20,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null)
     const { user, setUser } = useUser()
     const supabase = createSupabaseBrowser()
-    const router = useRouter()
+    // const router = useRouter()
     const { confirm } = useConfirm()
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
             <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Login to access all the features')}</p>
             {user &&
                 <div className="gap-2 flex flex-col items-end">
-                    <Link href="/admin" onClick={onClose}>
+                    <Link href="/create-review" onClick={onClose}>
                         <button className="text-accent border px-2 py-1 text-xs">Create Review</button>
                     </Link>
                     <Link href="/dashboard" onClick={onClose}>

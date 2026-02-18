@@ -24,7 +24,7 @@ export default function SidebarDashboard() {
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/admin"} className="px-5 py-3 flex gap-3 items-center hover:bg-accent2 hover:text-surface">
+                    <Link href={"/create-review"} className="px-5 py-3 flex gap-3 items-center hover:bg-accent2 hover:text-surface">
                         <SquarePen />
                         <span>Create Review</span>
                         <ExternalLink className="h-4 opacity-70" />

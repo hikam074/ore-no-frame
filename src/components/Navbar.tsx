@@ -14,7 +14,7 @@ const ProfilePopup = dynamic(
 
 const Navbar = ({ onToggleSidebar }: {onToggleSidebar: () => void}) => {
     const [open, setOpen] = useState(false)
-    const [openSidebar, setOpenSidebar] = useState(false)
+    // const [openSidebar, setOpenSidebar] = useState(false)
 
     const { user, setUser } = useUser()
     const pathname = usePathname()

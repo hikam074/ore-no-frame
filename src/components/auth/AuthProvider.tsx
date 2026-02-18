@@ -29,7 +29,7 @@ export function AuthProvider({ user, profile, children }: { user: User | null, p
 
     useEffect(() => {
         const { data: { subscription } } =
-            supabase.auth.onAuthStateChange((event, session) => {
+            supabase.auth.onAuthStateChange((event) => {
                 if (event === 'SIGNED_OUT') {
                     setAuthUser(null)
                     router.refresh() 

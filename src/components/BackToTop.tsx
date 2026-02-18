@@ -10,7 +10,7 @@ type Props = {
 
 const BackToTop = ({ footerRef }: Props ) => {
   const pathname = usePathname()
-  const isAtAdmin = pathname.startsWith("/admin")
+  const isAtAdmin = pathname.startsWith("/create-review")
 
   const [visible, setVisible] = useState(false)
   const [onFooter, setOnFooter] = useState(false)
