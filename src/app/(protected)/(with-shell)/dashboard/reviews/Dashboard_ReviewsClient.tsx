@@ -66,12 +66,12 @@ export default function Dashboard_ReviewsClient() {
     }
 
     // init fetch
-    useEffect(() => {
-        const loadInit = async () => {
-            await fetchReview(filters)
-        }
-        loadInit()
-    }, [filters, activeTab])
+    // useEffect(() => {
+    //     const loadInit = async () => {
+    //         await fetchReview(filters)
+    //     }
+    //     loadInit()
+    // }, [filters, activeTab])
 
     return (
         <section className="flex-1 p-2">
