@@ -1,3 +1,4 @@
+import { Anime } from "./anime"
 import { AnimeDetailData } from "./anime-page"
 import { Review } from "./review"
 
@@ -18,3 +19,15 @@ export type AnimeReviewPayload = Pick<Review,
   'created_at' |
   'updated_at' 
 >
+export type ReviewAndAnimeResult = Review & {
+  anime: Pick<Anime,
+  'mal_id' |
+  'title' |
+  'image_url' |
+  'media_type' |
+  'season' |
+  'year' | 
+  'mal_score' |
+  'mal_rank'
+  >
+}

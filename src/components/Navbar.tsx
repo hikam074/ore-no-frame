@@ -12,7 +12,7 @@ const ProfilePopup = dynamic(
     { ssr: false }
 )
 
-const Navbar = ({ sidebarOpen, onToggleSidebar }: {sidebarOpen: boolean, onToggleSidebar: () => void}) => {
+const Navbar = ({ sidebarOpen, onToggleSidebar }: { sidebarOpen: boolean, onToggleSidebar: () => void }) => {
     const [open, setOpen] = useState(false)
 
     const { user, setUser } = useUser()
@@ -23,19 +23,21 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: {sidebarOpen: boolean, onToggl
         <nav className="px-2 bg-accent top-0 right-0 left-0 fixed z-[999]">
             <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
                 <li className="flex gap-2">
-                    { user && isDashboard &&
+                    {user && isDashboard &&
                         <button onClick={onToggleSidebar} className={`
                         mt-1 rounded-t-md px-2 border border-b-0 transition-all
                         ${sidebarOpen
-                            ? "bg-white text-accent hover:text-accent2"
-                            : "bg-accent text-white hover:bg-highlight hover:text-accent"
-                        }
+                                ? "bg-white text-accent hover:text-accent2"
+                                : "bg-accent text-white hover:bg-highlight hover:text-accent"
+                            }
                         `}>
                             <Menu className="" />
                         </button>
                     }
                     <Link href="/" className="flex gap-2 p-2">
-                        <House className="" />
+                        {!isDashboard &&
+                            <House className="" />
+                        }
                         <span className="my-auto">俺のフレーム</span>
                     </Link>
                 </li>
@@ -45,10 +47,10 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: {sidebarOpen: boolean, onToggl
                 <li className="my-auto">
                     <ul className="flex gap-4">
                         <li className="font-semibold transition-all border-b-2 border-accent hover:scale-105 hover:border-b-2 hover:border-surface">
-                            <Link href="/" className="">Anime</Link>
+                            <Link href="/anime" className="">Anime</Link>
                         </li>
                         <li className="font-semibold transition-all border-b-2 border-accent hover:scale-105 hover:border-b-2 hover:border-surface">
-                            <Link href="/" className="">Manga</Link>
+                            <Link href="/manga" className="">Manga</Link>
                         </li>
                         <li className="transition-all hover:scale-105">
                             <Search className="" />

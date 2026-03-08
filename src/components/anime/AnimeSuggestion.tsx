@@ -2,13 +2,14 @@ import { Anime } from "@/types/anime"
 import AnimeCard from "./AnimeCard"
 
 type AnimeSuggestionProps = {
-    animes: Anime[] | null
+    animes: Anime[] | null // untuk data animes
+    title: string | null // untuk judul section
 }
 
-const AnimeSuggestion = ({ animes }: AnimeSuggestionProps) => {
+const AnimeSuggestion = ({ animes, title }: AnimeSuggestionProps) => {
     return (
         <section className="bg-surface m-4 p-4 pt-2 rounded space-y-2">
-            <h1 className="font-semibold text-xl sm:text-2xl text-accent">Anime Suggestion</h1>
+            <h1 className="font-semibold text-xl sm:text-2xl text-accent">{title ?? 'Anime Suggestion'}</h1>
             <hr className="border-t-accent2" />
 
             <div className="gap-2 

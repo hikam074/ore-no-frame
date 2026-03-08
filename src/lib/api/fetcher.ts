@@ -3,6 +3,7 @@ export async function apiFetch<T>(
     options?: RequestInit
 ): Promise<T> {
     const fullUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL!}${url}`
+    console.log(fullUrl)
     const res = await fetch(fullUrl, {
         ...options,
         credentials: "include",
@@ -26,5 +27,6 @@ export async function apiFetch<T>(
         throw new Error(json.error)
     }
     console.log(`[LOG] HIT ${fullUrl} : ${res.status} ${res.statusText}`)
+    
     return json.data as T
 }

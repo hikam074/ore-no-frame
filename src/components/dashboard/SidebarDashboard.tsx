@@ -12,7 +12,7 @@ export default function SidebarDashboard() {
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/"} className="px-5 py-3 flex gap-3 items-center hover:bg-accent2 hover:text-surface">
+                    <Link href={"/dashboard/reviews"} className="px-5 py-3 flex gap-3 items-center hover:bg-accent2 hover:text-surface">
                         <StarIcon />
                         <span>Your Reviews</span>
                     </Link>
