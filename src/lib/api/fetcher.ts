@@ -18,6 +18,7 @@ export async function apiFetch<T>(
         }
     }
     if (!res.ok) {
+        console.log(`[LOG] HIT ${fullUrl} : ${res.status} ${res.statusText}`)
         throw new Error(`Request failed: ${res.status}`)
     }
 
