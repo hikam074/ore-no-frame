@@ -2,7 +2,7 @@
 
 import { getAccessToken } from "@/lib/auth-client"
 import { getReviewsByUser, jupukmanga } from "./services/reviews.service"
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useEffect, useState, useCallback } from "react"
 import { ReviewFilter } from "@/types/filter"
 import { ReviewAndAnimeResult } from "@/types/admin-page"
 import { CheckLine, Eye, OctagonX, SquarePen, Trash2 } from "lucide-react"
@@ -34,7 +34,7 @@ export default function Dashboard_ReviewsClient() {
     const [filters, setFilters] = useState<ReviewFilter>({ sort: "latest" })
     const [activeTab, setActiveTab] = useState(0)
     // handle fetch
-    const fetchReview = async (filters: ReviewFilter) => {
+    const fetchReview = useCallback(async (filters: ReviewFilter) => {
         // siapkan data
         const token = await getAccessToken()
         if (!token) throw new Error("Token is null")
@@ -52,8 +52,8 @@ export default function Dashboard_ReviewsClient() {
         ///////////////////////////////
         // const fetched = await getReviewsByUser(token, filters)
         console.log(fetched)
-        
-    }
+
+    }, [activeTab])
     // handle tab
     const handleSwitchTab = (idx: number) => {
         setActiveTab(idx)
@@ -66,16 +66,26 @@ export default function Dashboard_ReviewsClient() {
     }
 
     // init fetch
-    // useEffect(() => {
-    //     const loadInit = async () => {
-    //         await fetchReview(filters)
-    //     }
-    //     loadInit()
-    // }, [filters, activeTab])
+    useEffect(() => {
+    const load = async () => {
+        const token = await getAccessToken()
+        if (!token) return
+
+        if (activeTab == 1) {
+            const fetched = await jupukmanga(token, 333)
+            setMangaReviews(fetched)
+        } else {
+            const fetched = await getReviewsByUser(token, filters)
+            setAnimeReviews(fetched)
+        }
+    }
+
+    load()
+    }, [filters, activeTab, fetchReview])
 
     return (
         <section className="flex-1 p-2">
-            <h1>{}</h1>
+            <h1>{ }</h1>
             <section className="">
                 <TabPanelHeader tabIndex={0} label="Anime" currentActiveTab={activeTab} onClick={handleSwitchTab} />
                 <TabPanelHeader tabIndex={1} label="Manga" currentActiveTab={activeTab} onClick={handleSwitchTab} />
