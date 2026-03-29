@@ -25,7 +25,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col text-text bg-highlight">
+      <body className="min-h-screen flex flex-col text-text bg-bground">
         <AuthProvider key={user?.id ?? 'guest'} user={user} profile={profile}>
           {children}
         </AuthProvider>

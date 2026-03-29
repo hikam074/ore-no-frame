@@ -1,6 +1,6 @@
 import { fetchAnimeSearch } from "@/lib/consumers/admin.consumer"
 import { AnimeSearchResult } from "@/types/admin-page"
-import { capitalize } from "@/utils/capitalize"
+import { capitalize } from "@/utils/modules/capitalize"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 

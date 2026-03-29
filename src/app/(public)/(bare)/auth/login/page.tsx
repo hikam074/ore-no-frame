@@ -3,7 +3,7 @@
 import { createSupabaseBrowser } from "@/lib/supabase/client"
 import { ChangeEvent, useState } from "react"
 import { useRouter } from "next/navigation"
-import { capitalize } from "@/utils/capitalize"
+import { capitalize } from "@/utils/modules/capitalize"
 import Link from "next/link"
 import { House } from "lucide-react"
 import { showError, showGlobalLoading } from "@/lib/toast"
@@ -21,7 +21,7 @@ export function InputForm({ name, type, onChange }: { name: string, type: string
     )
 }
 
-export default function LoginPage() {
+export default function Page() {
     const supabase = createSupabaseBrowser()
     const router = useRouter()
     const [email, setEmail] = useState("")

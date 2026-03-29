@@ -1,35 +1,95 @@
-@import '@mdxeditor/editor/style.css';
+@import "@mdxeditor/editor/style.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /* WRAP CHECKBOX MDXEDITOR */
-.prose li[role='checkbox'] {
+/* .prose li[role='checkbox'] {
   position: relative;
-}
+} */
 
 /* checkbox visual (pseudo-element) */
-.prose li[role='checkbox']::before {
+/* .prose li[role='checkbox']::before {
   left: 0.25rem;
   top: 0.15rem;
-}
+} */
 
 /* teks span */
-.prose li[role='checkbox']>span {
+/* .prose li[role='checkbox']>span {
   padding-left: 1.5rem;
-}
+} */
 
 /* checkbox visual (pseudo-element) */
-.prose li[role='checkbox']::after {
+/* .prose li[role='checkbox']::after {
   position: absolute;
   left: 0.6rem;
   top: 0.4rem;
-}
+} */
 
 /* Wrap toolbar MDXEditor */
-.mdxeditor-toolbar {
+/* .mdxeditor-toolbar {
   flex-wrap: wrap !important;
   overflow-x: visible !important;
+} */
+/* UBAH STYLE EDITOR TIPTAP */
+.ProseMirror {
+  outline: none !important;
+  border: none !important;
+  caret-color: black;
+}
+
+/* UBAH STYLE TEKS ARTIKEL CONTENT DIMANA SAJA */
+@layer components {
+  .article-content h2 {
+    @apply text-2xl font-bold mt-6 mb-2 text-primer;
+  }
+
+  .article-content h3 {
+    @apply text-xl font-medium mt-6 mb-2 text-primer;
+  }
+
+  .article-content p {
+    @apply mb-3 leading-relaxed text-black;
+  }
+
+  .article-content strong {
+    @apply text-sekunder font-bold;
+  }
+
+  .article-content img {
+    @apply my-2 h-auto block;
+  }
+
+  .article-content img[style*="text-align: center"] {
+    @apply ml-auto mr-auto;
+  }
+
+  .article-content img[style*="text-align: right"] {
+    @apply ml-auto;
+  }
+
+  [data-type="image-row"] {
+    @apply flex gap-3 flex-wrap items-start;
+  }
+
+  [data-type="image-row"] > * {
+    @apply flex-shrink-0;
+  }
+
+  [data-type="image-row"] img {
+    @apply max-w-full h-auto w-auto block flex-shrink-0;
+  }
+
+  [data-type="image-row"][data-align="start"] {
+    @apply justify-start;
+  }
+
+  [data-type="image-row"][data-align="center"] {
+    @apply justify-center;
+  }
+
+  [data-type="image-row"][data-align="end"] {
+    @apply justify-end;
+  }
 }

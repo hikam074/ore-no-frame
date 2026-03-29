@@ -3,16 +3,16 @@ import Link from "next/link"
 
 const Footer = () => {
     return (
-        <footer className="bottom-0 left-0 right-0 mt-8 p-4 space-y-4 sm:p-8 bg-accent text-text_darkmode">
+        <footer className="bottom-0 left-0 right-0 mt-8 p-4 space-y-4 sm:p-8 bg-tersier text-white">
             <div className="flex flex-col gap-4 sm:flex-row justify-between">
                 <nav className="">
                     <div className="flex gap-2">
-                        <p className="font-bold">俺のフレーム</p>
+                        <p className="font-bold">サイドフレーム</p>
                         <span className="border border-white"> </span>
-                        <p className="">Ore no Frame</p>
+                        <p className="">Sisi Frame</p>
                     </div>
                     <div>
-                        <p className="font-light text-sm">Anime Reviews Blog</p>
+                        <p className="font-light text-sm">Blog Esai Review, Pembahasan, atau Sekedar Jurnal</p>
                     </div>
                 </nav>
                 <nav>

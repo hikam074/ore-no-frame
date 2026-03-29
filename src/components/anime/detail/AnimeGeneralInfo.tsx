@@ -1,5 +1,5 @@
 import { AnimeDetailData } from "@/types/anime-page";
-import { capitalize } from "@/utils/capitalize";
+import { capitalize } from "@/utils/modules/capitalize";
 
 type AnimeGeneralInfoProps = {
     anime: AnimeDetailData

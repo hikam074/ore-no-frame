@@ -4,6 +4,7 @@ import { ReviewAndAnimeResult } from "@/types/admin-page"
 import { ReviewFilter } from "@/types/filter"
 
 export async function getReviewsByUser(token: string, payload?: ReviewFilter): Promise<ReviewAndAnimeResult[]> { 
+    console.log(payload)
     const reviews = await fetchReviewsByUser({
         headers: {
             'Content-Type': 'application/json',

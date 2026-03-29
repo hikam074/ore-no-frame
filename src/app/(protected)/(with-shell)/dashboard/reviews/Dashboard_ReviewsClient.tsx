@@ -31,7 +31,7 @@ export default function Dashboard_ReviewsClient() {
     // use
     const [animeReviews, setAnimeReviews] = useState<ReviewAndAnimeResult[]>([])
     const [mangaReviews, setMangaReviews] = useState<ReviewAndAnimeResult[]>([])
-    const [filters, setFilters] = useState<ReviewFilter>({ sort: "latest" })
+    const [filters] = useState<ReviewFilter>({ sort: "latest" })
     const [activeTab, setActiveTab] = useState(0)
     // handle fetch
     const fetchReview = useCallback(async (filters: ReviewFilter) => {

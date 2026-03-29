@@ -2,7 +2,7 @@
 
 import { useUser } from "../auth/AuthProvider"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
-import { capitalize } from "@/utils/capitalize"
+import { capitalize } from "@/utils/modules/capitalize"
 import { createPortal } from "react-dom"
 import { useEffect, useRef } from "react"
 import { useConfirm } from "@/components/layout/ConfirmContext";
@@ -17,7 +17,7 @@ type ProfilePopupProps = {
 
 const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null)
-    const { user, setUser } = useUser()
+    const { user } = useUser()
     const supabase = createSupabaseBrowser()
     const { confirm } = useConfirm()
 
