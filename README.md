@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SisiFrame
 
-## Getting Started
+## Deskripsi
+SisiFrame adalah sebuah aplikasi web berbasis Next.js yang menyediakan platform informasi dan konten seputar Anime dan Manga. Aplikasi ini dilengkapi dengan sistem autentikasi pengguna, dashboard personal, serta fitur manajemen dan pembuatan artikel interaktif (Rich Text Editor). 
 
-First, run the development server:
+## Fitur Utama
+* **Sistem Autentikasi**: Terintegrasi dengan Supabase untuk manajemen login dan sesi pengguna.
+* **Eksplorasi Konten Publik**: Halaman khusus untuk menjelajahi direktori `/anime` dan `/manga`.
+* **Pencarian Interaktif**: Fitur pencarian konten yang dapat diakses publik.
+* **Dashboard Pengguna**: Halaman terproteksi bagi pengguna untuk mengelola profil dan melihat daftar artikel mereka.
+* **Manajemen Artikel**: Fitur *Create* dan *Edit* artikel lengkap dengan integrasi editor teks (Tiptap Editor).
+* **Pemisahan Akses (Routing)**: Menggunakan struktur `(public)` dan `(protected)` untuk mengamankan rute aplikasi.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+* **Framework:** Next.js (v16.1.4)
+* **Bahasa:** TypeScript
+* **Styling:** Tailwind CSS & Framer Motion
+* **State Management:** React
+* **Backend / BaaS:** Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
+* **Rich Text Editor:** Tiptap
+
+## Struktur Direktori Utama
+Berikut adalah gambaran ringkas mengenai struktur direktori proyek ini:
+
+```text
+├── public/                 # Aset statis (gambar, ikon SVG, dll)
+├── src/
+│   ├── app/                # App Router Next.js
+│   │   ├── (protected)/    # Rute yang memerlukan autentikasi (dashboard, create-artikel, dll)
+│   │   └── (public)/       # Rute yang bisa diakses publik (anime, manga, login, search)
+│   ├── components/         # Komponen UI yang dapat digunakan kembali (navbar, footer, auth, editor)
+│   ├── hooks/              # Custom React Hooks (useArtikelSubmit, useTags, dll)
+│   ├── lib/                # Konfigurasi library pihak ketiga (Supabase client/server, API fetcher)
+│   ├── services/           # Modul untuk memanggil API endpoint
+│   ├── types/              # Definisi tipe dan antarmuka TypeScript (enums, modules)
+│   └── utils/              # Fungsi helper dan utilitas (format tanggal, sanitize, dll)
+├── .env.example            # Template environment variables
+├── package.json            # Daftar dependensi dan scripts proyek
+└── tailwind.config.ts      # Konfigurasi Tailwind CSS
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalasi
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pastikan Anda sudah menginstal Node.js di sistem Anda. Clone repositori ini, lalu jalankan perintah berikut untuk menginstal semua dependensi:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+npm install
+# atau
+yarn install
+# atau
+pnpm install
+```
 
-## Learn More
+## Setup Environment
 
-To learn more about Next.js, take a look at the following resources:
+Buat file .env.local atau .env di root direktori proyek Anda (sejajar dengan package.json), lalu salin dan isi variabel berikut berdasarkan file .env.example:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+NEXT_PUBLIC_FRONTEND_URL=http://localhost:2000
+NEXT_PUBLIC_BACKEND_URL=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+(Catatan: Sesuaikan URL dan Key Supabase dengan kredensial dari dashboard Supabase Anda).
 
-## Deploy on Vercel
+## Cara Menjalankan
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Untuk menjalankan proyek di lingkungan development, gunakan script berikut:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+npm run dev
+# atau
+yarn dev
+# atau
+pnpm dev
+```
+
+Server pengembangan akan berjalan secara default di port 2000 (berdasarkan konfigurasi script next dev -p 2000 di package.json). Buka http://localhost:2000 di browser Anda untuk melihat hasilnya.
+
+Untuk membangun aplikasi untuk production:
+
+```text
+npm run build
+npm run start
+```
