@@ -3,7 +3,7 @@ export async function apiFetch<T>(
     options?: RequestInit
 ): Promise<T> {
     const fullUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL!}${url}`
-    console.log("FETCH START", fullUrl)
+
     const res = await fetch(fullUrl, {
         ...options,
         credentials: "include",
@@ -19,17 +19,16 @@ export async function apiFetch<T>(
         throw new Error("Unauthorized");
     }
     if (!res.ok) {
-        console.log(`[LOG] HIT ${fullUrl} : ${res.status} ${res.statusText}`)
+        // console.log(`[LOG] HIT ${fullUrl} : ${res.status} ${res.statusText}`)
         throw new Error(`Request failed: ${res.status}`)
     }
-    console.log("FETCH END", res.status)
 
     const json = await res.json()
 
     if (json.error) {
         throw new Error(json.error)
     }
-    console.log(`[LOG] HIT ${fullUrl} : ${res.status} ${res.statusText}`)
+    // console.log(`[LOG] HIT ${fullUrl} : ${res.status} ${res.statusText}`)
 
     return json.data as T
 }

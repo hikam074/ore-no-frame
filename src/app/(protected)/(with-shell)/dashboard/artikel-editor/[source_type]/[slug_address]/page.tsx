@@ -1,6 +1,10 @@
 import { SourceType } from "@/types"
 import ArtikelEditorPage from "../../_components/ArtikelEditorPage"
 
+export const metadata = {
+  title: "Artikel Editor"
+};
+
 type Props = {
     params: Promise<{ source_type: SourceType; slug_address: string }>
 }

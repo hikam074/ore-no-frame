@@ -2,6 +2,10 @@ import ArtikelCard from "@/components/artikel/ArtikelCard";
 import { getAllActiveArtikel } from "@/lib/consumers/artikel.consumer";
 import { ArtikelKard } from "@/types";
 
+export const metadata = {
+  title: "Search",
+};
+
 type Props = {
     searchParams: Promise<{ query: string }>
 }

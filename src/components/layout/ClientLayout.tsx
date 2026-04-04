@@ -14,12 +14,11 @@ export default function ClientLayout({
   const footerRef = useRef<HTMLDivElement>(null)
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  console.log(`Sidebar is opened: ${sidebarOpen}`)
 
   return (
     <>
       <ConfirmProvider>
-        <Navbar sidebarOpen={false} onToggleSidebar={() => setSidebarOpen(false)} />
+        <Navbar sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(false)} />
 
         <main className="flex-1 mt-11">
           {children}

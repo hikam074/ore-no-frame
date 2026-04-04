@@ -1,6 +1,10 @@
 // pages/404.tsx
 import Link from 'next/link';
 
+export const metadata = {
+  title: "404",
+};
+
 export default function Custom404() {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
