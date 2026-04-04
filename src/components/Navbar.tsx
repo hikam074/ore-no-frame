@@ -24,7 +24,7 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: { sidebarOpen: boolean, onTogg
 
     return (
         <nav className="px-2 bg-primer top-0 right-0 left-0 fixed z-[999]">
-            <ul className="flex justify-between text-text_darkmode font-bold text-sm sm:text-base">
+            <ul className="flex justify-between text-white font-bold text-sm sm:text-base">
                 <li className="flex gap-2">
                     {user && isDashboard &&
                         <button onClick={onToggleSidebar} className={`
