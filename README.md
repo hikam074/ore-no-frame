@@ -85,3 +85,9 @@ Untuk membangun aplikasi untuk production:
 npm run build
 npm run start
 ```
+
+Untuk melakukan pengecekan dengan linting:
+
+```text
+npm run lint
+```
