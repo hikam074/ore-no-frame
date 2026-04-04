@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Rss, Tags, TvMinimalPlay } from "lucide-react";
+import { ArrowRightIcon, PencilLineIcon, RssIcon, TagsIcon, TvMinimalPlayIcon } from "lucide-react";
 import { ArtikelKard } from "@/types/modules/artikel";
-import { arrayStringify, capitalize } from "@/utils";
+import { arrayStringify, capitalize, formatTanggalIndo } from "@/utils";
 import { ANIME_TYPE } from "@/types";
 
 interface ArtikelCardProps {
@@ -19,7 +19,13 @@ export function ArtikelCard({ data }: ArtikelCardProps) {
       hover:scale-[1.01] hover:shadow-lg hover:border-primer
     ">
       {/* JUDUL < SM */}
-      <h3 className="sm:hidden text-lg font-bold text-primer line-clamp-3 break-words mb-2">{data.title}</h3>
+      <div className="sm:hidden mb-3">
+        <h3 className="text-lg font-bold text-primer line-clamp-3 break-words mb-1">{data.title}</h3>
+        <div className="text-xs text-tersier flex items-center gap-1">
+          <PencilLineIcon size={15} />
+          <p>{formatTanggalIndo(data.created_at)}</p>
+        </div>
+      </div>
 
       <div className="flex gap-3 items-start">
 
@@ -37,23 +43,30 @@ export function ArtikelCard({ data }: ArtikelCardProps) {
         {/* METADATA & DESKRIPSI */}
         <section className="flex flex-col flex-1 gap-2">
           {/* JUDUL >= SM */}
-          <h3 className="hidden sm:block text-lg font-bold text-primer line-clamp-2 break-words">{data.title}</h3>
+          <div className="hidden sm:block">
+            <h3 className=" text-lg font-bold text-primer line-clamp-2 break-words mb-1">{data.title}</h3>
+            <div className="hidden sm:flex text-xs text-tersier items-center gap-1">
+              <PencilLineIcon size={15} />
+              <p>{formatTanggalIndo(data.created_at)}</p>
+            </div>
+          </div>
 
           {/* INFO */}
           <div className="flex flex-wrap gap-2 text-sm text-tersier">
             <span className="flex gap-1 text-xs">
-              <TvMinimalPlay size={18} />
+              <TvMinimalPlayIcon size={18} />
               {capitalize(data.source.media_type) ?? '--'} {data.source.media_type === ANIME_TYPE.TV ? capitalize(data.source.source_type) : ''}
             </span>
             <span className="flex gap-1 text-xs">
-              <Rss size={18} />
+              <RssIcon size={18} />
               {data.source.season ? `${capitalize(data.source.season)},` : ''} {capitalize(data.source.month)} {data.source.year}
             </span>
             <span className="flex gap-1 text-xs">
-              <Tags size={18} />
+              <TagsIcon size={18} />
               {arrayStringify(data.source.genres) ?? '--'}
             </span>
           </div>
+
 
           {/* DESKRIPSI */}
           <p className="text-base text-gray-500 line-clamp-3 break-words">{data.short_description}</p>
@@ -61,7 +74,7 @@ export function ArtikelCard({ data }: ArtikelCardProps) {
           {/* READ MORE */}
           <div className="text-xs text-tersier underline inline-flex items-center justify-start transition-all hover:scale-105 hover:translate-x-1 origin-left">
             <p>Baca Selengkapnya</p>
-            <ArrowRight className="ml-1 w-4" />
+            <ArrowRightIcon className="ml-1 w-4" />
           </div>
 
           {/* TAGS >= SM */}

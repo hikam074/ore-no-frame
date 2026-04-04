@@ -1,8 +1,9 @@
-import { fetchSourceSearch } from "@/lib/consumers/admin.consumer"
+// import { fetchSourceSearch } from "@/lib/consumers/admin.consumer"
 import { capitalize } from "@/utils/modules/capitalize"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { SOURCE_TYPE, SourceSearchResult, SourceType } from "@/types"
+import { getSourceSearch } from "@/lib/consumers/artikel.consumer"
 
 type SourceFinderProps = {
     onSourceSelect: (selected: SourceSearchResult) => void
@@ -40,7 +41,7 @@ const SourceFinder = ({ onSourceSelect, onTypeSelect, initialSource, initialType
         const timer = setTimeout(async () => {
             setLoading(true)
             try {
-                const res = await fetchSourceSearch(typeSelected, query)
+                const res = await getSourceSearch(typeSelected, query)
                 setResults(res)
             } finally {
                 setLoading(false)

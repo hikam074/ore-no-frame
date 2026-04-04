@@ -1,9 +1,9 @@
-import { fetchAllArtikelKards } from "@/lib/consumers/artikel.consumer";
+import { getAllArtikelKards } from "@/lib/consumers/artikel.consumer";
 import { ArtikelKard } from "@/types/modules/artikel";
 import ArtikelCard from "@/components/artikel/ArtikelCard";
 
 export default async function Page() {
-  const artikels: ArtikelKard[] = await fetchAllArtikelKards();
+  const artikels: ArtikelKard[] = await getAllArtikelKards();
 
   return (
     <>

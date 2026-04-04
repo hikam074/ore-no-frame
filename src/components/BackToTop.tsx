@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { ArrowUp } from "lucide-react"
+import { ArrowUpIcon } from "lucide-react"
 
 type Props = {
   footerRef: React.RefObject<HTMLDivElement | null> 
@@ -61,7 +61,7 @@ const BackToTop = ({ footerRef }: Props ) => {
       `}
       aria-label="Back to top"
     >
-      <ArrowUp className="w-4 h-4" />
+      <ArrowUpIcon className="w-4 h-4" />
     </button>
   )
 }

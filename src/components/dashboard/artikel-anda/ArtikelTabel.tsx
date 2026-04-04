@@ -1,16 +1,16 @@
 'use client'
 
 import Link from "next/link"
-import { CheckLine, Eye, OctagonX, SquarePen, Trash2 } from "lucide-react"
+import { CheckLineIcon, EyeIcon, OctagonXIcon, SquarePenIcon, Trash2Icon } from "lucide-react"
 import { ArtikelKard, SourceType } from "@/types"
 import { formatTanggalIndo } from "@/utils"
-import { apiFetch } from "@/lib/api/fetcher"
 import { getAccessToken } from "@/lib/auth-client"
 import { useState } from "react"
 import { useConfirm } from "@/components/layout/ConfirmContext"
 import { setFlash } from "@/lib/flash"
 import { showError } from "@/lib/toast"
 import { SpinnerIcon } from "@/components/icons/modules/SpinnerIcon"
+import { apiDeleteAuth } from "@/lib/api/method-wrapper-with-auth"
 
 interface ArtikelTabelProps {
     artikels: ArtikelKard[]
@@ -41,13 +41,7 @@ export default function ArtikelTabel({ artikels, loading }: ArtikelTabelProps) {
             const token = await getAccessToken()
             if (!token) throw new Error("Unauthorized")
 
-            await apiFetch<void>(`/artikel/${sourceType}/${slug}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+            await apiDeleteAuth<void>(`/artikel/${sourceType}/${slug}`)
 
             setFlash("success", "Artikel berhasil dihapus")
 
@@ -93,8 +87,8 @@ export default function ArtikelTabel({ artikels, loading }: ArtikelTabelProps) {
                             <td className="text-sekunder px-2">{a.slug}</td>
                             <td className="px-2">
                                 {a.is_published
-                                    ? <CheckLine className="h-5 text-green-600" />
-                                    : <OctagonX className="h-5 text-red-600" />}
+                                    ? <CheckLineIcon className="h-5 text-green-600" />
+                                    : <OctagonXIcon className="h-5 text-red-600" />}
                             </td>
                             <td className="px-2">
                                 {formatTanggalIndo(new Date(a.created_at).toLocaleString())}
@@ -105,19 +99,19 @@ export default function ArtikelTabel({ artikels, loading }: ArtikelTabelProps) {
                                         className={`p-2 bg-blue-400 text-white border rounded ${deletingSlug ? "opacity-50 pointer-events-none" : ""
                                             }`}
                                     >
-                                        <Eye className="h-4 w-4" />
+                                        <EyeIcon className="h-4 w-4" />
                                     </Link>
                                     <Link href={`/dashboard/artikel-editor/${a.source_type}/${a.slug}`}
                                         className={`p-2 bg-yellow-400 text-white border rounded ${deletingSlug ? "opacity-50 pointer-events-none" : ""
                                             }`}
                                     >
-                                        <SquarePen className="h-4 w-4" />
+                                        <SquarePenIcon className="h-4 w-4" />
                                     </Link>
                                     <button disabled={!!deletingSlug} onClick={() => handleDelete(a.source_type as SourceType, a.slug, a.title)} className="p-2 bg-red-600 text-white border rounded">
                                         {deletingSlug === a.slug ? (
                                             <SpinnerIcon className="h-4 w-4 text-white" />
                                         ) : (
-                                            <Trash2 className="h-4 w-4" />
+                                            <Trash2Icon className="h-4 w-4" />
                                         )}
                                     </button>
                                 </div>

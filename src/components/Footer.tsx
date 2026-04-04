@@ -1,4 +1,3 @@
-
 import Link from "next/link"
 
 const Footer = () => {
@@ -6,11 +5,11 @@ const Footer = () => {
         <footer className="bottom-0 left-0 right-0 mt-8 p-4 space-y-4 sm:p-8 bg-tersier text-white">
             <div className="flex flex-col gap-4 sm:flex-row justify-between">
                 <nav className="">
-                    <div className="flex gap-2">
+                    <Link href="/" className="flex gap-2">
                         <p className="font-bold">サイドフレーム</p>
                         <span className="border border-white"> </span>
                         <p className="">Sisi Frame</p>
-                    </div>
+                    </Link>
                     <div>
                         <p className="font-light text-sm">Blog Esai Review, Pembahasan, atau Sekedar Jurnal</p>
                     </div>
@@ -19,8 +18,8 @@ const Footer = () => {
                     <span className="font-bold border-b-2 border-surface">Quick Links</span>
                     <ul className="font-light">
                         <li className="hover:font-semibold transition-all"><Link href="/" className="my-auto">Home</Link></li>
-                        <li className="hover:font-semibold transition-all"><Link href="/" className="my-auto">Anime</Link></li>
-                        <li className="hover:font-semibold transition-all"><Link href="/" className="my-auto">Manga</Link></li>
+                        <li className="hover:font-semibold transition-all"><Link href="/anime" className="my-auto">Anime</Link></li>
+                        <li className="hover:font-semibold transition-all"><Link href="/manga" className="my-auto">Manga</Link></li>
                     </ul>
                 </nav>
             </div>

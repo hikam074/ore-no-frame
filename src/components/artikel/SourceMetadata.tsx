@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { ANIME_TYPE, Source } from "@/types"
 import { arrayStringify, capitalize } from "@/utils"
-import { FactoryIcon, Hash, RssIcon, Star, TagsIcon, TvMinimalPlayIcon, TypeIcon, UserRoundPenIcon } from "lucide-react"
+import { FactoryIcon, HashIcon, RssIcon, StarIcon, TagsIcon, TvMinimalPlayIcon, TypeIcon, UserRoundPenIcon } from "lucide-react"
 
 interface SourceMetadataProps {
     source: Source
@@ -75,11 +75,11 @@ export default function SourceMetadata({ source }: SourceMetadataProps) {
                 {/* RANK & SCORE */}
                 <div className="flex flex-row gap-2">
                     <span className="flex gap-1">
-                        <Hash size={18} />
+                        <HashIcon size={18} />
                         {source.mal_rank ?? '--'}
                     </span>
                     <span className="flex gap-1">
-                        <Star size={18} />
+                        <StarIcon size={18} />
                         {source.mal_score ?? '--'}
                     </span>
                 </div>

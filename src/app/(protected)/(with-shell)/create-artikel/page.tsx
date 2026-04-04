@@ -1,18 +1,15 @@
 'use client'
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { useConfirm } from "@/components/layout/ConfirmContext";
-import { dismissGlobalLoading, showError, showGlobalLoading } from "@/lib/toast"
-import { setFlash } from "@/lib/flash"
-import { getAccessToken } from "@/lib/auth-client"
-import { createArtikel } from "./services/create-artikel.service"
 import SourceFinder from "@/components/create-artikel/SourceFinder"
 import { SOURCE_TYPE, SourceSearchResult, SourceType } from "@/types"
 import ContentEditor from "@/components/create-artikel/ContentEditor"
-import { capitalize, sanitizeArtikelPayload } from "@/utils";
+import { capitalize } from "@/utils";
 import ToggleButton from "@/components/ToggleButton";
 import { JSONContent } from "@tiptap/react";
+import { useTags } from "@/hooks/useTags"
+import { useRatingBreakdown } from "@/hooks/useRatingBreakdown"
+import { useArtikelSubmit } from "@/hooks/useArtikelSubmit"
 
 const EMPTY_DOC: JSONContent = {
     type: "doc",
@@ -24,19 +21,31 @@ const EMPTY_DOC: JSONContent = {
 }
 
 export default function Page() {
-    // state
+    // state & hooks
+    const {
+        tags,
+        input: inputTag,
+        setInput: setInputTag,
+        handleKeyDown,
+        removeTag
+    } = useTags()
+    const {
+        items: ratingBreakdowns,
+        nameInput: breakdownNameInput,
+        valueInput: breakdownValueInput,
+        setNameInput: setBreakdownNameInput,
+        setValueInput: setBreakdownValueInput,
+        addItem: addRatingItem,
+        removeItem: removeRatingItem
+    } = useRatingBreakdown()
+    const { handleSubmit, submitting } = useArtikelSubmit()
     const [title, setTitle] = useState('')
     const [artikelHtml, setArtikelHtml] = useState("")
     const [artikelJson, setArtikelJson] = useState<JSONContent>(EMPTY_DOC)
     const [shortDescription, setShortDescription] = useState('')
     const [isPublished, setIsPublished] = useState(false)
-    const [tags, setTags] = useState<string[]>([])
     const [type, setType] = useState<SourceType>(SOURCE_TYPE.UNKNOWN)
-    const [inputTag, setInputTag] = useState('')
     const [slug, setSlug] = useState('')
-    const [ratingBreakdowns, setRatingBreakdowns] = useState<{ name: string; value: string }[]>([])
-    const [breakdownNameInput, setBreakdownNameInput] = useState("")
-    const [breakdownValueInput, setBreakdownValueInput] = useState("")
     const [source, setSource] = useState<SourceSearchResult>({
         mal_id: 0,
         title: '',
@@ -45,115 +54,6 @@ export default function Page() {
         media_type: '',
         year: 0,
     })
-    const [submitting, setSubmitting] = useState(false)
-    // use
-    const { confirm } = useConfirm();
-    // use
-    const router = useRouter()
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            e.preventDefault()
-
-            const value = inputTag.trim().toLowerCase()
-
-            if (!value) return
-
-            // prevent duplicate
-            if (tags.includes(value)) {
-                setInputTag("")
-                return
-            }
-
-            setTags(prev => [...prev, value])
-            setInputTag("")
-        }
-    }
-    const removeTag = (tag: string) => {
-        setTags(prev => prev.filter(t => t !== tag))
-    }
-    const addRatingItem = () => {
-        const name = breakdownNameInput.trim()
-        const value = breakdownValueInput.trim()
-
-        if (!name || !value) return
-
-        // prevent duplicate name
-        if (ratingBreakdowns.some(r => r.name === name)) {
-            setBreakdownNameInput("")
-            setBreakdownValueInput("")
-            return
-        }
-
-        setRatingBreakdowns(prev => [...prev, { name, value }])
-        setBreakdownNameInput("")
-        setBreakdownValueInput("")
-    }
-    const removeRatingItem = (name: string) => {
-        setRatingBreakdowns(prev => prev.filter(r => r.name !== name))
-    }
-
-    // handler submit
-    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-
-        if (submitting) return
-
-        setSubmitting(true)
-
-        try {
-            const ok = await confirm({
-                type: 'create',
-                title: "Simpan artikel ini?",
-                message: "Pastikan semua benar sebelum menyimpan"
-            });
-
-            if (!ok) return;
-
-            showGlobalLoading("Menyimpan artikel...")
-
-            const token = await getAccessToken()
-            if (!token) throw new Error("Token is null")
-            console.log(token);
-
-            const payload = sanitizeArtikelPayload({
-                mal_id: source.mal_id,
-                source_type: type,
-                title,
-                slug,
-                short_description: shortDescription,
-                is_published: isPublished,
-                tags,
-                content_html: artikelHtml,
-                content_json: artikelJson,
-                review_breakdown: ratingBreakdowns,
-            })
-
-            console.log(payload)
-
-            const submitted = await createArtikel(payload, token)
-
-            console.log("submitted:", submitted)
-
-            if (!submitted?.slug) {
-                showError("Gagal mengunggah artikel")
-                return
-            }
-
-            setFlash("success", "Artikel berhasil diunggah!")
-            router.push(`/${type}/${submitted.slug}`)
-
-        } catch (error: unknown) {
-            const message =
-                error instanceof Error ? error.message : "Unknown error"
-            setFlash("error", message)
-            showError(message)
-        } finally {
-            dismissGlobalLoading()
-            setSubmitting(false)
-        }
-    }
-
     return (
         <article className='m-4 rounded text-primer space-y-6'>
             {/* HEADER */}
@@ -318,7 +218,22 @@ export default function Page() {
 
             {/* SIMPAN */}
             <section className="flex justify-center">
-                <button disabled={submitting} onClick={handleSubmit} className="text-white text-md font-medium rounded bg-primer px-2 py-1">Simpan</button>
+                <button disabled={submitting} onClick={() => handleSubmit({
+                    mode: "create",
+                    source_type: type,
+                    data: {
+                        mal_id: source.mal_id,
+                        source_type: type,
+                        title,
+                        slug,
+                        short_description: shortDescription,
+                        is_published: isPublished,
+                        tags,
+                        content_html: artikelHtml,
+                        content_json: artikelJson,
+                        review_breakdown: ratingBreakdowns,
+                    }
+                })} className="text-white text-md font-medium rounded bg-primer px-2 py-1">Simpan</button>
             </section>
 
         </article>

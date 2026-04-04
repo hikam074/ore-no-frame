@@ -1,7 +1,7 @@
 export default function Page() {
     return (
         <section className="flex-1 p-2">
-            HAHAHA
+            Coming soon... TODO: create view aggreagate statistic, recent articles
         </section>
     )
 }

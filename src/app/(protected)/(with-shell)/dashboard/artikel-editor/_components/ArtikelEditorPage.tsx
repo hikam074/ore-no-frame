@@ -1,18 +1,17 @@
 'use client'
 
+import { useTags } from "@/hooks/useTags"
+import { useRatingBreakdown } from "@/hooks/useRatingBreakdown"
+import { useArtikelSubmit } from "@/hooks/useArtikelSubmit"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { useConfirm } from "@/components/layout/ConfirmContext"
 import { dismissGlobalLoading, showError, showGlobalLoading } from "@/lib/toast"
-import { setFlash } from "@/lib/flash"
-import { getAccessToken } from "@/lib/auth-client"
-import { submitArtikel, getArtikelBySlug } from "../services/artikel-editor.service"
 import SourceFinder from "@/components/create-artikel/SourceFinder"
 import { SOURCE_TYPE, SourceSearchResult, SourceType } from "@/types"
 import ContentEditor from "@/components/create-artikel/ContentEditor"
-import { capitalize, sanitizeArtikelPayload } from "@/utils"
+import { capitalize } from "@/utils"
 import ToggleButton from "@/components/ToggleButton"
 import { JSONContent } from "@tiptap/react"
+import { getArtikelBySlug } from "@/lib/consumers/artikel.consumer"
 
 const EMPTY_DOC: JSONContent = {
     type: "doc",
@@ -26,8 +25,27 @@ type Props = {
 }
 
 export default function ArtikelEditorPage({ source_type, slug_address }: Props) {
+    // state & hooks
     const isEditMode = !!slug_address && !!source_type
-
+    const {
+        tags,
+        input: inputTag,
+        setInput: setInputTag,
+        handleKeyDown,
+        setTags,
+        removeTag
+    } = useTags()
+    const {
+        items: ratingBreakdowns,
+        nameInput: breakdownNameInput,
+        valueInput: breakdownValueInput,
+        setNameInput: setBreakdownNameInput,
+        setValueInput: setBreakdownValueInput,
+        addItem: addRatingItem,
+        setItems,
+        removeItem: removeRatingItem
+    } = useRatingBreakdown()
+    const { handleSubmit, submitting } = useArtikelSubmit()
     const [ready, setReady] = useState(!isEditMode) // create langsung ready, edit tunggu fetch
     const [title, setTitle] = useState("")
     const [artikelId, setArtikelId] = useState("")
@@ -35,32 +53,20 @@ export default function ArtikelEditorPage({ source_type, slug_address }: Props) 
     const [artikelJson, setArtikelJson] = useState<JSONContent>(EMPTY_DOC)
     const [shortDescription, setShortDescription] = useState("")
     const [isPublished, setIsPublished] = useState(false)
-    const [tags, setTags] = useState<string[]>([])
     const [type, setType] = useState<SourceType>(SOURCE_TYPE.UNKNOWN)
-    const [inputTag, setInputTag] = useState("")
     const [slug, setSlug] = useState("")
-    const [ratingBreakdowns, setRatingBreakdowns] = useState<{ name: string; value: string }[]>([])
-    const [breakdownNameInput, setBreakdownNameInput] = useState("")
-    const [breakdownValueInput, setBreakdownValueInput] = useState("")
     const [source, setSource] = useState<SourceSearchResult>({
         mal_id: 0, title: "", title_en: "", image_url: "", media_type: "", year: 0,
     })
-    const [submitting, setSubmitting] = useState(false)
 
-    const { confirm } = useConfirm()
-    const router = useRouter()
-
-    // ── Pre-fill form kalau mode edit ──────────────────────────────────
+    // Pre-fill form kalau mode edit
     useEffect(() => {
         if (!isEditMode) return
 
         const prefill = async () => {
             showGlobalLoading("Memuat data artikel...")
             try {
-                const token = await getAccessToken()
-                if (!token) throw new Error("Token is null")
-
-                const artikel = await getArtikelBySlug(source_type, slug_address, token)
+                const artikel = await getArtikelBySlug(source_type, slug_address)
                 if (!artikel) throw new Error("Artikel tidak ditemukan")
 
                 setArtikelId(artikel.id)
@@ -69,6 +75,7 @@ export default function ArtikelEditorPage({ source_type, slug_address }: Props) 
                 setShortDescription(artikel.short_description)
                 setIsPublished(artikel.is_published)
                 setTags(artikel.tags ?? [])
+                setItems(artikel.rating_breakdown ?? [])
                 setType(artikel.source_type as SourceType)
                 setArtikelHtml(artikel.content_html)
                 setArtikelJson(
@@ -76,7 +83,6 @@ export default function ArtikelEditorPage({ source_type, slug_address }: Props) 
                         ? JSON.parse(artikel.content_json)
                         : artikel.content_json ?? EMPTY_DOC
                 )
-                setRatingBreakdowns(artikel.rating_breakdown ?? [])
                 setSource({
                     mal_id: artikel.source.mal_id,
                     title: artikel.source.title,
@@ -95,90 +101,7 @@ export default function ArtikelEditorPage({ source_type, slug_address }: Props) 
         }
 
         prefill()
-    }, [source_type, slug_address, isEditMode])
-
-    // ── Tag handlers ───────────────────────────────────────────────────
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key !== "Enter") return
-        e.preventDefault()
-        const value = inputTag.trim().toLowerCase()
-        if (!value || tags.includes(value)) return setInputTag("")
-        setTags(prev => [...prev, value])
-        setInputTag("")
-    }
-    const removeTag = (tag: string) => setTags(prev => prev.filter(t => t !== tag))
-
-    // ── Rating handlers ────────────────────────────────────────────────
-    const addRatingItem = () => {
-        const name = breakdownNameInput.trim()
-        const value = breakdownValueInput.trim()
-        if (!name || !value || ratingBreakdowns.some(r => r.name === name)) {
-            setBreakdownNameInput("")
-            setBreakdownValueInput("")
-            return
-        }
-        setRatingBreakdowns(prev => [...prev, { name, value }])
-        setBreakdownNameInput("")
-        setBreakdownValueInput("")
-    }
-    const removeRatingItem = (name: string) =>
-        setRatingBreakdowns(prev => prev.filter(r => r.name !== name))
-
-    // ── Submit ─────────────────────────────────────────────────────────
-    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        if (submitting) return
-        setSubmitting(true)
-
-        try {
-            const ok = await confirm({
-                type: isEditMode ? "warning" : "create",
-                title: isEditMode ? "Simpan perubahan ini?" : "Simpan artikel ini?",
-                message: "Pastikan semua benar sebelum menyimpan",
-            })
-            if (!ok) return
-
-            showGlobalLoading(isEditMode ? "Menyimpan perubahan..." : "Menyimpan artikel...")
-
-            const token = await getAccessToken()
-            if (!token) throw new Error("Token is null")
-
-            const payload = sanitizeArtikelPayload({
-                mal_id: source.mal_id,
-                source_type: type,
-                title,
-                slug,
-                short_description: shortDescription,
-                is_published: isPublished,
-                tags,
-                content_html: artikelHtml,
-                content_json: artikelJson,
-                review_breakdown: ratingBreakdowns,
-            })
-
-            const submitted = await submitArtikel(
-                // kalau edit mode, sertakan artikel_id
-                isEditMode ? { ...payload, artikel_id: artikelId } : payload,
-                token
-            )
-
-            if (!submitted?.slug) {
-                showError("Gagal menyimpan artikel")
-                return
-            }
-
-            setFlash("success", isEditMode ? "Artikel berhasil diperbarui!" : "Artikel berhasil diunggah!")
-            router.push(`/${type}/${submitted.slug}`)
-
-        } catch (error: unknown) {
-            const message = error instanceof Error ? error.message : "Unknown error"
-            setFlash("error", message)
-            showError(message)
-        } finally {
-            dismissGlobalLoading()
-            setSubmitting(false)
-        }
-    }
+    }, [source_type, slug_address, isEditMode, setTags, setItems])
 
     // Tampilkan loading skeleton saat pre-fill belum selesai
     if (!ready) return (
@@ -320,7 +243,23 @@ export default function ArtikelEditorPage({ source_type, slug_address }: Props) 
 
             {/* SIMPAN */}
             <section className="flex justify-center">
-                <button disabled={submitting} onClick={handleSubmit}
+                <button disabled={submitting} onClick={() => handleSubmit({
+                    mode: "edit",
+                    source_type: type,
+                    data: {
+                        artikel_id: artikelId,
+                        mal_id: source.mal_id,
+                        source_type: type,
+                        title,
+                        slug,
+                        short_description: shortDescription,
+                        is_published: isPublished,
+                        tags,
+                        content_html: artikelHtml,
+                        content_json: artikelJson,
+                        review_breakdown: ratingBreakdowns,
+                    }
+                })}
                     className="text-white text-md font-medium rounded bg-primer px-2 py-1">
                     {isEditMode ? "Simpan Perubahan" : "Simpan"}
                 </button>

@@ -47,6 +47,7 @@ function sanitizeBreakdown(
 }
 
 export function sanitizeArtikelPayload(data: {
+    artikel_id?: string
     mal_id: number
     source_type: string
     title: string
@@ -59,6 +60,7 @@ export function sanitizeArtikelPayload(data: {
     review_breakdown: { name: string; value: string }[]
 }) {
     return {
+        artikel_id: data.artikel_id,
         mal_id: Number(data.mal_id),
         source_type: data.source_type?.toLowerCase().trim(),
         title: sanitizeText(data.title, 100),

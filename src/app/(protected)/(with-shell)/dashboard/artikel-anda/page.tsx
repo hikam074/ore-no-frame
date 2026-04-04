@@ -17,8 +17,7 @@ export default function Page() {
     const fetchArtikel = async (type: SourceType) => {
         try {
             setLoading(true)
-            await new Promise((resolve) => setTimeout(resolve, 3000))
-            const data = await apiFetch<ArtikelKard[]>(`/artikel?source_type=${type}`)
+            const data = await apiFetch<ArtikelKard[]>(`/artikel?source_type=${type}&active=all`)
             setArtikels(data)
         } catch (err) {
             console.error(err)

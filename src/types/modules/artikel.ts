@@ -36,6 +36,7 @@ export type ArtikelKard = Pick<Artikel,
 >
 // INDEPENDEN CREATE-ARTIKEL PAYLOAD (KARENA UNTUK BRIDGE KE BE)
 export type CreateArtikelPayload = {
+  artikel_id?: string
   mal_id: number
   source_type: string
   title: string

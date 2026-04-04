@@ -2,8 +2,8 @@ import FlashListener from "@/components/FlashListener";
 import "./globals.css"
 import { AuthProvider } from "@/components/auth/AuthProvider"
 import { createSupabaseServer } from "@/lib/supabase/server"
-import { UserProfile } from "@/types/auth"
 import { Toaster } from "react-hot-toast";
+import { UserProfile } from "@/types";
 
 export default async function RootLayout({
   children,

@@ -9,6 +9,7 @@ import { useConfirm } from "@/components/layout/ConfirmContext";
 import Link from "next/link"
 import { showGlobalLoading } from "@/lib/toast"
 import { setFlash } from "@/lib/flash"
+import { AtSignIcon, CircleUserIcon, LayoutDashboardIcon, LogOutIcon, NotebookTextIcon, ShieldUserIcon, SquarePenIcon } from "lucide-react"
 
 type ProfilePopupProps = {
     open: boolean
@@ -45,7 +46,7 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
         const ok = await confirm({
             type: 'warning',
             title: "Logout?",
-            message: "You need to log in next time to access more features."
+            message: "Anda perlu log in kembali nanti untuk mengakses semua fitur."
         });
         if (!ok) return;
 
@@ -57,29 +58,53 @@ const ProfilePopup = ({ open, onClose }: ProfilePopupProps) => {
 
     return createPortal(
         <div onClick={e => e.stopPropagation()} ref={popupRef} className="
-            fixed right-1 top-10 bg-white p-3 shadow-xl flex flex-col items-end z-[999] rounded-b
+            fixed right-1 top-10 bg-white p-3 shadow-xl flex flex-col z-[999] rounded-b
             transition-all duration-200
             scale-100 opacity-100
         "
         >
-            <p className="text-accent text-sm font-semibold">{user ? user?.name : ''}</p>
-            <p className="text-text_muted text-xs font-thin">{user ? user?.email : ''}</p>
-            <p className="text-text_muted text-xs font-thin">{capitalize(user ? user?.role : 'Login to access all the features')}</p>
             {user &&
-                <div className="gap-2 flex flex-col items-end">
-                    <Link href="/create-review" onClick={onClose}>
-                        <button className="text-accent border px-2 py-1 text-xs">Create Review</button>
-                    </Link>
-                    <Link href="/dashboard" onClick={onClose}>
-                    <button className="text-accent border px-2 py-1 text-xs">Dashboard</button>
-                    </Link>
-                    <button className="text-accent border px-2 py-1 text-xs" onClick={logout}>Logout</button>
+                <div className="w-full h-full">
+                    <p className="text-primer text-sm font-semibold">{user ? user?.name : ''}</p>
+                    <div className="text-tersier text-xs font-thin flex items-center mt-1">
+                        <AtSignIcon height={16} />
+                        <span>{capitalize(user ? user?.email : '')}</span>
+                    </div>
+                    <div className="text-tersier text-xs font-thin flex items-center mt-1">
+                        <ShieldUserIcon height={16} />
+                        <span>{capitalize(user ? user?.role : '')}</span>
+                    </div>
+                    <div className="flex flex-col items-end w-full mt-3">
+                        <Link href="/dashboard" className="text-sekunder flex items-center font-medium text-sm gap-1 border-t w-full py-2 hover:bg-kuarter">
+                            <LayoutDashboardIcon height={20} />
+                            <span>Dashboard</span>
+                        </Link>
+                        <Link href="/dashboard/artikel-anda" className="text-sekunder flex items-center font-medium text-sm gap-1 border-t w-full py-2 hover:bg-kuarter">
+                            <NotebookTextIcon height={20} />
+                            <span>Artikel Anda</span>
+                        </Link>
+                        <Link href="/create-artikel" className="text-sekunder flex items-center font-medium text-sm gap-1 border-t w-full py-2 hover:bg-kuarter">
+                            <SquarePenIcon height={20} />
+                            <span>Buat Artikel</span>
+                        </Link>
+                        <Link href="/dashboard/profil" className="text-sekunder flex items-center font-medium text-sm gap-1 border-t w-full py-2 hover:bg-kuarter">
+                            <CircleUserIcon height={20} />
+                            <span>Profil</span>
+                        </Link>
+                        <button onClick={logout} className="text-sekunder flex items-center font-medium text-sm gap-1 border-y w-full py-2 hover:bg-kuarter">
+                            <LogOutIcon height={20} />
+                            <span>Logout</span>
+                        </button>
+                    </div>
                 </div>
             }
             {!user &&
-                <Link href="/auth/login">
-                    <button className="text-accent border px-2 py-1 text-xs mt-4">Login</button>
-                </Link>
+                <div className="w-full h-full">
+                    <p className="text-tersier text-xs font-thin">Login to access all the features</p>
+                    <Link href="/login">
+                        <button className="text-primer border px-2 py-1 text-xs mt-2 w-full hover:bg-kuarter">Login</button>
+                    </Link>
+                </div>
             }
         </div>,
         document.body

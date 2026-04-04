@@ -9,7 +9,7 @@ export function formatTanggalIndo(dateString: string): string {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "Asia/Jakarta", // penting biar sesuai WIB
+    timeZone: "Asia/Jakarta",
   });
 
   const parts = formatter.formatToParts(date);

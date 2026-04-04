@@ -8,6 +8,12 @@ export async function apiFetch<T>(
         ...options,
         credentials: "include",
         cache: "no-store",
+        headers: {
+            ...(options?.body instanceof FormData
+                ? {}
+                : { "Content-Type": "application/json" }),
+            ...(options?.headers || {}),
+        }
     })
     if (res.status === 401) {
         throw new Error("Unauthorized");

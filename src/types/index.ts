@@ -4,6 +4,7 @@ export * from "./modules/rating-breakdown"
 export * from "./modules/source"
 export * from "./modules/user"
 export * from "./modules/api-response"
+export * from "./modules/auth"
 // EXPORT ENUMS
 export * from "./enums/manga-type"
 export * from "./enums/anime-type"

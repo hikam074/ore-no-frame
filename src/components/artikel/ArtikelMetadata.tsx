@@ -1,7 +1,7 @@
 'use client'
 
 import { User } from "@/types"
-import {formatTanggalIndo } from "@/utils"
+import { formatTanggalIndo } from "@/utils"
 import { CalendarArrowUpIcon, UserIcon } from "lucide-react"
 
 interface ArtikelMetadataProps {
