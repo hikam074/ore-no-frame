@@ -5,7 +5,6 @@ import Footer from "@/components/Footer"
 import BackToTop from "@/components/BackToTop"
 import { useRef } from "react"
 import { ConfirmProvider } from "./ConfirmContext"
-// import SidebarDashboard from "@/components/dashboard/SidebarDashboard"
 
 export default function ClientProtectedLayout({
   children,

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { ArrowUp } from "lucide-react"
+import { ArrowUpIcon } from "lucide-react"
 
 type Props = {
   footerRef: React.RefObject<HTMLDivElement | null> 
@@ -52,16 +52,16 @@ const BackToTop = ({ footerRef }: Props ) => {
         ${isAtAdmin
           ? "right-6"
           : "right-6 sm:left-6 sm:right-auto"}
-        rounded-full p-4 shadow-lg transition-all duration-300 border border-accent
+        rounded-full p-4 shadow-lg transition-all duration-300 border border-primer
         ${
           onFooter
-            ? "bg-text_darkmode text-accent hover:scale-105 hover:bg-accent hover:border-text_darkmode hover:text-text_darkmode"
-            : "bg-accent text-surface hover:opacity-90 hover:scale-105 hover:bg-text_darkmode hover:text-accent"
+            ? "bg-white text-primer hover:scale-105 hover:bg-primer hover:border-white hover:text-white"
+            : "bg-primer text-white hover:opacity-90 hover:scale-105 hover:bg-white hover:text-primer"
         }
       `}
       aria-label="Back to top"
     >
-      <ArrowUp className="w-4 h-4" />
+      <ArrowUpIcon className="w-4 h-4" />
     </button>
   )
 }

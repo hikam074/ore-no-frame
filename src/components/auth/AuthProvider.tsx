@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import type { User } from "@supabase/supabase-js"
-import type { AuthUser, UserProfile } from "@/types/auth"
+import { AuthUser, UserProfile } from "@/types"
 
 type AuthContextType = {
     user: AuthUser | null
@@ -33,7 +33,7 @@ export function AuthProvider({ user, profile, children }: { user: User | null, p
                 if (event === 'SIGNED_OUT') {
                     setAuthUser(null)
                     router.refresh()
-                    router.replace('/auth/login')
+                    router.replace('/login')
                 }
 
                 if (event === 'SIGNED_IN' && session?.user) {

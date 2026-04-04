@@ -9,7 +9,7 @@ export default async function ProtectedLayout({ children }: { children: ReactNod
 
   // jika tidak ada user atau error, lempar ke login
   if (error || !user) {
-    redirect("/auth/login")
+    redirect("/login")
   }
 
   // jika aman, render halaman

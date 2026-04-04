@@ -14,6 +14,7 @@ export default function ClientLayout({
   const footerRef = useRef<HTMLDivElement>(null)
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  console.log(`Sidebar is opened: ${sidebarOpen}`)
 
   return (
     <>

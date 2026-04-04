@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ComponentType } from "react";
-import { Spinner, SuccessIcon, ErrorIcon, WarningIcon } from "./ConfirmIcon";
 import { motion, AnimatePresence } from "framer-motion";
+import { DangerIcon, ErrorIcon, SpinnerIcon, SuccessIcon } from "../icons";
 
 type ConfirmOptions = {
     type?: ConfirmType;
@@ -22,7 +22,7 @@ const confirmStyles: Record<ConfirmType, ConfirmStyle> = {
     create: {
         bg: "bg-green-50",
         button: "bg-green-500 hover:bg-green-600",
-        icon: Spinner
+        icon: SpinnerIcon
     },
     delete: {
         bg: "bg-red-50",
@@ -32,7 +32,7 @@ const confirmStyles: Record<ConfirmType, ConfirmStyle> = {
     warning: {
         bg: "bg-yellow-50",
         button: "bg-yellow-500 hover:bg-yellow-600",
-        icon: WarningIcon
+        icon: DangerIcon
     },
     info: {
         bg: "bg-blue-50",

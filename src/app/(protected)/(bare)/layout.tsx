@@ -5,7 +5,7 @@ export default async function ProtectedBareLayout({ children }: { children: Reac
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect("/auth/login")
+  if (!user) redirect("/login")
 
   return <main>{children}</main>
 }
