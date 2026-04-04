@@ -2,6 +2,10 @@ import ArtikelCard from "@/components/artikel/ArtikelCard";
 import { getAllActiveUnknownArtikel } from "@/lib/consumers/artikel.consumer";
 import { ArtikelKard } from "@/types";
 
+export const metadata = {
+  title: "Unknown",
+};
+
 export default async function Page() {
     const artikels: ArtikelKard[] = await getAllActiveUnknownArtikel();
     return (

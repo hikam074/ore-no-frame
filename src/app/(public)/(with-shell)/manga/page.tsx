@@ -2,6 +2,10 @@ import ArtikelCard from "@/components/artikel/ArtikelCard";
 import { getAllActiveMangaArtikel } from "@/lib/consumers/artikel.consumer";
 import { ArtikelKard } from "@/types";
 
+export const metadata = {
+  title: "Manga",
+};
+
 export default async function Page() {
     const artikels: ArtikelKard[] = await getAllActiveMangaArtikel();
     return (

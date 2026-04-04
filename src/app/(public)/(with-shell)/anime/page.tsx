@@ -2,6 +2,10 @@ import ArtikelCard from "@/components/artikel/ArtikelCard";
 import { getAllActiveAnimeArtikel } from "@/lib/consumers/artikel.consumer";
 import { ArtikelKard } from "@/types";
 
+export const metadata = {
+  title: "Anime",
+};
+
 export default async function Page() {
     const artikels: ArtikelKard[] = await getAllActiveAnimeArtikel();
     return (

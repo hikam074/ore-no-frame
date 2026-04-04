@@ -5,6 +5,13 @@ import { createSupabaseServer } from "@/lib/supabase/server"
 import { Toaster } from "react-hot-toast";
 import { UserProfile } from "@/types";
 
+export const metadata = {
+  title: {
+    default: "SisiFrame",
+    template: "%s | SisiFrame",
+  },
+};
+
 export default async function RootLayout({
   children,
 }: {
