@@ -1,31 +1,20 @@
 'use client'
 
 import { createSupabaseBrowser } from "@/lib/supabase/client"
-import { ChangeEvent, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { capitalize } from "@/utils/modules/capitalize"
 import Link from "next/link"
-import { HouseIcon } from "lucide-react"
+import { EyeClosedIcon, EyeIcon, HouseIcon } from "lucide-react"
 import { showError, showGlobalLoading } from "@/lib/toast"
 import { setFlash } from "@/lib/flash"
 
-export function InputForm({ name, type, onChange }: { name: string, type: string, onChange: (e: ChangeEvent<HTMLInputElement>) => void }) {
-    return (
-        <div className="w-full text-primer">
-            <label htmlFor={name}
-                className="bg-white px-1 absolute -translate-y-3 translate-x-2"
-            >{capitalize(name)}</label>
-            <input name={name} type={type} onChange={onChange}
-                className="w-full border border-tersier p-2 pt-3 rounded-md" />
-        </div>
-    )
-}
 
 export default function Page() {
     const supabase = createSupabaseBrowser()
     const router = useRouter()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const handleLogin = async () => {
         showGlobalLoading("Logging in...")
         try {
@@ -62,8 +51,18 @@ export default function Page() {
                 <p className="font-light text-primer">Login</p>
             </header>
             <section className="w-full space-y-6">
-                <InputForm name="email" type="text" onChange={e => setEmail(e.target.value)} />
-                <InputForm name="password" type="password" onChange={e => setPassword(e.target.value)} />
+                <div className="w-full text-primer">
+                    <label htmlFor="email" className="bg-white px-1 absolute -translate-y-3 translate-x-2" >Email</label>
+                    <input name="email" type="email" onChange={e => setEmail(e.target.value)} className="w-full border border-tersier p-2 pt-3 rounded-md" />
+                </div>
+                <div className="w-full text-primer">
+                    <label htmlFor="password" className="bg-white px-1 absolute -translate-y-3 translate-x-2" >Password</label>
+                    <input name="password" type={isPasswordVisible ? "text" : "password"} onChange={e => setPassword(e.target.value)} className="w-full border border-tersier p-2 pt-3 rounded-md" />
+                    <div className="w-full flex justify-end px-2">
+                        <EyeIcon width={28} height={28} className={`bg-white p-1 absolute -translate-y-9 ${isPasswordVisible ? "" : "hidden"}`} onClick={() => setIsPasswordVisible(false)}/>
+                        <EyeClosedIcon width={28} height={28} className={`bg-white p-1 absolute -translate-y-9 ${isPasswordVisible ? "hidden" : ""}`} onClick={() => setIsPasswordVisible(true)}/>
+                    </div>
+                </div>
                 <button onClick={handleLogin} className="p-2 bg-sekunder w-full rounded-md text-white font-semibold">Login</button>
             </section>
         </article>

@@ -2,7 +2,7 @@
 
 import { useEditor, EditorContent, JSONContent, Editor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import { Bold, Heading2, Heading3, ImageIcon, Italic, TextAlignCenter, TextAlignEnd, TextAlignStart } from "lucide-react"
+import { BoldIcon, Heading2Icon, Heading3Icon, ImageIcon, ItalicIcon, TextAlignCenterIcon, TextAlignEndIcon, TextAlignStartIcon, UnderlineIcon } from "lucide-react"
 import { CustomImage } from "./image/CustomImage"
 import { ImageRow } from "./image/ImageRow"
 import { html as beautify } from "js-beautify"
@@ -145,31 +145,35 @@ export default function ContentEditor({ initialContent, onChange }: Props) {
             <div className="flex flex-wrap gap-2 border-b p-4 py-2 bg-kuarter">
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => editor.chain().focus().toggleBold().run()}>
-                    <Bold height={26} />
+                    <BoldIcon height={26} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => editor.chain().focus().toggleItalic().run()}>
-                    <Italic height={26} />
+                    <ItalicIcon height={26} />
+                </button>
+
+                <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => editor.chain().focus().toggleUnderline().run()}>
+                    <UnderlineIcon height={26} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
-                    <Heading2 height={26} />
+                    <Heading2Icon height={26} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
-                    <Heading3 height={24} />
+                    <Heading3Icon height={24} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => setUniversalAlign("left")}>
-                    <TextAlignStart height={24} />
+                    <TextAlignStartIcon height={24} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => setUniversalAlign("center")}>
-                    <TextAlignCenter height={24} />
+                    <TextAlignCenterIcon height={24} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={() => setUniversalAlign("right")}>
-                    <TextAlignEnd height={24} />
+                    <TextAlignEndIcon height={24} />
                 </button>
 
                 <button className="border rounded w-9 h-9 flex items-center justify-center bg-white" onClick={addImage}>

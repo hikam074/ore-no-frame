@@ -1,15 +1,34 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Navbar from "@/components/Navbar"
 import SidebarDashboard from "@/components/dashboard/SidebarDashboard"
+import { useWindowSize } from "@/hooks/useWidth"
 
 export default function DashboardLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
-    const [sidebarOpen, setSidebarOpen] = useState(true)
+    const width = useWindowSize()
+    const isDesktop = width >= 768
+    
+    const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    if (isDesktop) {
+      function handleDesktop() {
+        setSidebarOpen(true)
+      }
+      handleDesktop()
+    }
+    else {
+      function handleDesktop() {
+        setSidebarOpen(false)
+      }
+      handleDesktop()
+    }
+  }, [isDesktop])
 
     return (
         <>
@@ -27,7 +46,7 @@ export default function DashboardLayout({
                 {/* SIDEBAR */}
                 <aside
                     className={`
-                        fixed z-30 top-9 left-0 h-full transition-transform duration-300
+                        fixed z-30 top-9 left-0 h-full transition-all duration-300
                         md:static md:z-auto md:h-auto md:translate-x-0 md:top-0
                         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:hidden"}
                     `}

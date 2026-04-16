@@ -18,7 +18,7 @@ export default function ClientLayout({
   return (
     <>
       <ConfirmProvider>
-        <Navbar sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(false)} />
+        <Navbar sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
         <main className="flex-1 mt-11">
           {children}

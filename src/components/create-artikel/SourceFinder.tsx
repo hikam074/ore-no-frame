@@ -46,7 +46,7 @@ const SourceFinder = ({ onSourceSelect, onTypeSelect, initialSource, initialType
             } finally {
                 setLoading(false)
             }
-        }, 500)
+        }, 1000)
         return () => clearTimeout(timer)
     }, [query, typeSelected])
     return (

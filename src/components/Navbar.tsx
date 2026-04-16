@@ -24,8 +24,8 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: { sidebarOpen: boolean, onTogg
 
     return (
         <nav className="px-2 bg-primer top-0 right-0 left-0 fixed z-[999]">
-            <ul className="flex justify-between text-white font-bold text-sm sm:text-base">
-                <li className="flex gap-2">
+            <ul className="flex justify-between items-center text-white font-bold text-sm sm:text-base">
+                <li className="flex h-full gap-2">
                     {user && isDashboard &&
                         <button onClick={onToggleSidebar} className={`
                         mt-1 rounded-t-md px-2 border border-b-0 transition-all
@@ -34,7 +34,7 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: { sidebarOpen: boolean, onTogg
                                 : "bg-white text-primer hover:bg-kuarter"
                             }
                         `}>
-                            <MenuIcon className="" />
+                            <MenuIcon className="block" />
                         </button>
                     }
                     <Link href="/" className="flex gap-2 p-2">
@@ -44,8 +44,8 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: { sidebarOpen: boolean, onTogg
                         <span className={`my-auto ${openSearchBar ? "hidden sm:inline" : ""}`}>サイドフレーム</span>
                     </Link>
                 </li>
-                <li className="my-auto">
-                    <ul className="flex gap-4">
+                <li className="my-auto flex items-center">
+                    <ul className="flex gap-4 items-center">
                         <li className={`font-semibold transition-all border-b-2 border-white hover:scale-105 hover:border-b-2 hover:border-white ${openSearchBar ? "hidden md:inline" : ""}`}>
                             <Link href="/anime" className="">Anime</Link>
                         </li>
@@ -53,18 +53,18 @@ const Navbar = ({ sidebarOpen, onToggleSidebar }: { sidebarOpen: boolean, onTogg
                             <Link href="/manga" className="">Manga</Link>
                         </li>
                         <li className={`flex items-center ${openSearchBar ? "border rounded" : "transition-all hover:scale-105"}`}>
-                            <div className={`bg-white text-primer font-normal flex ${openSearchBar ? "" : "hidden"}`}>
+                            <div className={`bg-white text-primer font-normal flex items-center ${openSearchBar ? "" : "hidden"}`}>
                                 <input type="text" placeholder="Search anime/manga..." className="text-sm px-1" onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                         router.push(`/search?query=${search}`)
                                     }
                                 }} />
-                                <Link href={`/search?query=${search}`} className="">
+                                <Link href={`/search?query=${search}`} className="flex items-center">
                                     <SearchIcon className="text-primer p-1" />
                                 </Link>
                             </div>
                             <div onClick={() => setOpenSearchBar(v => !v)}>
-                                {!openSearchBar && <SearchIcon className="" />}
+                                {!openSearchBar && <SearchIcon className="block" />}
                                 {openSearchBar && <XIcon className="" />}
                             </div>
                         </li>
