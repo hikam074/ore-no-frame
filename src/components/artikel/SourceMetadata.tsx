@@ -1,15 +1,17 @@
 'use client'
 
 import Image from "next/image"
-import { ANIME_TYPE, Source } from "@/types"
+import { ANIME_TYPE, RatingBreakdown, Source } from "@/types"
 import { arrayStringify, capitalize } from "@/utils"
 import { FactoryIcon, HashIcon, RssIcon, StarIcon, TagsIcon, TvMinimalPlayIcon, TypeIcon, UserRoundPenIcon } from "lucide-react"
+import RatingMetadata from "./RatingMetadata"
 
 interface SourceMetadataProps {
     source: Source
+    rating?: RatingBreakdown[]
 }
 
-export default function SourceMetadata({ source }: SourceMetadataProps) {
+export default function SourceMetadata({ source, rating }: SourceMetadataProps) {
     return (
         <section className="flex justify-center gap-4 mb-4">
             {/* POSTER */}
@@ -83,6 +85,15 @@ export default function SourceMetadata({ source }: SourceMetadataProps) {
                         {source.mal_score ?? '--'}
                     </span>
                 </div>
+
+                {/* RATING BREAKDOWN > SM */}
+                {rating && rating?.length > 0 && (
+                    <RatingMetadata 
+                    rating={rating} 
+                    className="hidden sm:inline rounded mt-4 max-w-xs
+                    text-primer text-sm 
+                    " />
+                )}
             </div>
         </section>
     )
