@@ -1,7 +1,7 @@
 'use client'
 
 import { User } from "@/types"
-import { formatTanggalIndo } from "@/utils"
+import { capitalize, formatTanggalIndo } from "@/utils"
 import { CalendarArrowUpIcon, UserIcon } from "lucide-react"
 
 interface ArtikelMetadataProps {
@@ -28,7 +28,7 @@ export default function ArtikelMetadata({ reviewer, created_at, tags }: ArtikelM
                 <div className="flex flex-wrap gap-2 ">
                     {tags.map(tag => (
                         <div key={tag} className="px-2 py-1 bg-tersier text-xs text-white rounded">
-                            <span>{tag}</span>
+                            <span>{capitalize(tag)}</span>
                         </div>
                     ))}
                 </div>

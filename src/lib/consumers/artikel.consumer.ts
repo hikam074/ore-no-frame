@@ -1,4 +1,4 @@
-import { Artikel, ArtikelKard, CreateArtikelResponse, SourceSearchResult, SourceType } from "@/types"
+import { Artikel, ArtikelKard, CreateArtikelResponse, DashboardSummary, SourceSearchResult, SourceType } from "@/types"
 import { apiGet } from "../api/method-wrapper"
 import { apiGetAuth, apiPostAuth } from "../api/method-wrapper-with-auth"
 
@@ -28,4 +28,7 @@ export function getSourceSearch(source_type: string, q: string) {
 }
 export function postArtikel(payload: unknown) {
   return apiPostAuth<CreateArtikelResponse>(`/artikel`, payload)
+}
+export function getDashboardData() {
+  return apiGetAuth<DashboardSummary>('/dashboard')
 }

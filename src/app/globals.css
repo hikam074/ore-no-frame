@@ -65,3 +65,7 @@
     @apply justify-end;
   }
 }
+
+.recharts-wrapper *:focus:not(:focus-visible) {
+  outline: none;
+}
